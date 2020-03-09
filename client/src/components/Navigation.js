@@ -17,7 +17,7 @@ export default class Navigation extends Component {
                 <Navbar.Brand as={Link} to="/">
                     <FontAwesomeIcon icon="film" size="lg" />
                     {' '}
-                    Filmpick
+                    FilmPick
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">

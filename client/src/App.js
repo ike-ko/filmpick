@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faFilm } from '@fortawesome/free-solid-svg-icons'
+import { faFilm, faSlidersH, faSearch } from '@fortawesome/free-solid-svg-icons'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -12,7 +12,12 @@ import Favorites from './components/Favorites';
 import Recommendations from './components/Recommendations';
 import Login from './components/Login';
 
-library.add(faFilm);
+// Add FontAwesome icons to library here
+library.add(
+  faFilm,
+  faSlidersH,
+  faSearch
+);
 
 class App extends Component {
   render() {
