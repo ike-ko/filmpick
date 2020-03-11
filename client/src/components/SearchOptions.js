@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
-import { SearchByOptions, SortByOptions } from '../actions';
+import { SearchForOptions, SortByOptions } from '../actions';
 
 export default class SearchOptions extends Component {
 
-    handleSearchBy = (e) => {
+    handleSearchFor = (e) => {
         e.preventDefault();
-
-        this.props.setSearchByOption(e.target.value);
+        this.props.setSearchForOption(e.target.value);
     }
 
     handleSortBy = (e) => {
         e.preventDefault();
-
         this.props.setSortByOption(e.target.value);
     }
 
@@ -24,12 +22,11 @@ export default class SearchOptions extends Component {
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
-                        <Form.Group controlId="formSearchBy">
-                            <Form.Label>Search By</Form.Label>
-                            <Form.Control as="select" value={this.props.searchByOption} onChange={this.handleSearchBy}>
-                                <option value={SearchByOptions.TITLE}>Title</option>
-                                <option value={SearchByOptions.DIRECTOR}>Director</option>
-                                <option value={SearchByOptions.ACTOR}>Actor</option>
+                        <Form.Group controlId="formSearchFor">
+                            <Form.Label>Search For</Form.Label>
+                            <Form.Control as="select" value={this.props.searchForOption} onChange={this.handleSearchFor}>
+                                <option value={SearchForOptions.MOVIES}>Movies</option>
+                                <option value={SearchForOptions.TV_SHOWS}>TV Shows</option>
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formSortBy">

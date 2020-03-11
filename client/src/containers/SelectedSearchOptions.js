@@ -1,17 +1,17 @@
 import { connect } from 'react-redux'
-import { setSearchByOption, setSortByOption } from '../actions'
+import { setSearchForOption, setSortByOption } from '../actions'
 import SearchOptions from '../components/SearchOptions'
 
-const mapStateToProps = state => ({
-    searchByOption: state.searchOptions.searchBy,
-    sortByOption: state.searchOptions.sortBy
-})
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-    setSearchByOption: option => dispatch(setSearchByOption(option)),
-    setSortByOption: option => dispatch(setSortByOption(option)),
+const mapStateToProps = (state, ownProps) => ({
+    searchForOption: state.searchOptions.searchFor,
+    sortByOption: state.searchOptions.sortBy,
     isVisible: ownProps.isVisible,
     hideSearchOptions: ownProps.hideSearchOptions
+})
+
+const mapDispatchToProps = dispatch => ({
+    setSearchForOption: option => dispatch(setSearchForOption(option)),
+    setSortByOption: option => dispatch(setSortByOption(option))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchOptions)
