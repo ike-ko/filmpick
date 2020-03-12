@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { Container } from 'react-bootstrap';
 
 export default class Recommendations extends Component {
     render() {
         return (
-            <div className="main">
-                <p>Recommendations</p>
-            </div>
+            <Container fluid className="main">
+                Recommendations
+            </Container>
         )
     }
 }

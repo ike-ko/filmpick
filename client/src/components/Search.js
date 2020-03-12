@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { FormControl, Button, Container, InputGroup, Image, Media, Col, Row } from 'react-bootstrap';
+import { FormControl, Button, Container, InputGroup, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import Card from './Card';
 import SearchOptionsContainer from '../containers/SearchOptionsContainer';
-import FavoriteButtonContainer from '../containers/FavoriteButtonContainer'
 
 import testMovieResults from '../testMovieResults.json';    // remove once unneeded
 import testGenreIds from '../testGenreIds.json';
@@ -59,32 +59,15 @@ export default class Search extends Component {
             });
 
             displayCards.push(
-                <Col 
+                <Card 
                     key={item.id}
-                    sm={12}
-                    md={6}
-                    lg={4}
-                    xl={3}
-                    className="mb-3 p-3"
-                >
-                    <Media className="h-100 p-3 border border-secondary rounded bg-white">
-                        {item.poster_path 
-                            ? <Image height="138px" src={`https://image.tmdb.org/t/p/w92/${item.poster_path}`} rounded className="mr-3" />
-                            : <div className="mr-3 border border-secondary rounded text-center bg-secondary" style={{height:"138px", width:"92px"}}>
-                                <FontAwesomeIcon icon="question" size="5x" className="align-self-center mt-4 text-white" />
-                            </div>
-                        }
-                        <Media.Body className="h-100 d-flex flex-column">
-                            <h5>{`${item.title} (${item.release_date.substring(0, 4)})`}</h5>
-                            <h6>{matchedGenres}</h6>
-                            <p>{overview}</p>
-
-                            <FavoriteButtonContainer 
-                                movieId={item.id}
-                            />
-                        </Media.Body>
-                    </Media>
-                </Col>
+                    id={item.id}
+                    posterPath={item.poster_path}
+                    title={item.title}
+                    releaseDate={item.release_date}
+                    matchedGenres={matchedGenres}
+                    overview={overview}
+                />
             );
         })
 
@@ -93,7 +76,7 @@ export default class Search extends Component {
 
     render() {
         return (
-            <Container fluid className="main bg-light">
+            <Container fluid className="main">
                 <SearchOptionsContainer 
                     isVisible={this.state.isOptionVisible}
                     hideSearchOptions={this.hideSearchOptions}

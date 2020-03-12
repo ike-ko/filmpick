@@ -7,9 +7,9 @@ import { faFilm, faSlidersH, faSearch, faQuestion, faHeart } from '@fortawesome/
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import NavigationContainer from './containers/NavigationContainer';
+import FavoritesContainer from './containers/FavoritesContainer';
 
 import Search from './components/Search';
-import Favorites from './components/Favorites';
 import Recommendations from './components/Recommendations';
 import Login from './components/Login';
 
@@ -29,7 +29,7 @@ class App extends Component {
         <NavigationContainer />
 
         <Route path="/" exact component={Search} />
-        <Route path="/favorites" component={Favorites} />
+        <Route path="/favorites" component={FavoritesContainer} />
         <Route path="/recommendations" component={Recommendations} />
         <Route path="/login" component={Login} />
       </Router>
