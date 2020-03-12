@@ -18,7 +18,7 @@ export default class SearchOptions extends Component {
         return (
             <Modal show={this.props.isVisible} onHide={this.props.hideSearchOptions}>
                 <Modal.Header closeButton>
-                <Modal.Title>Search Options</Modal.Title>
+                    <Modal.Title>Search Options</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
@@ -40,9 +40,9 @@ export default class SearchOptions extends Component {
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                <Button variant="secondary" onClick={this.props.hideSearchOptions}>
-                    Close
-                </Button>
+                    <Button variant="secondary" onClick={this.props.hideSearchOptions}>
+                        Close
+                    </Button>
                 </Modal.Footer>
             </Modal>
         )

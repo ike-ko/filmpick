@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 
-export default class Login extends Component {
+export default class Register extends Component {
     constructor() {
         super();
 
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            confirmPassword: ""
         }
     }
 
@@ -22,18 +23,24 @@ export default class Login extends Component {
             password: e.target.value
         });
     }
+    
+    handleConfirmPasswordChange = (e) => {
+        this.setState({
+            confirmPassword: e.target.value
+        });
+    }
 
-    // TODO: add login logic
-    handleLogin = () => {
+    // TODO: add register logic
+    handleRegister = () => {
         this.props.setLogin(true);
-        this.props.hideLogin();
+        this.props.hideRegister();
     }
 
     render() {
         return (
-            <Modal show={this.props.isVisible} onHide={this.props.hideLogin}>
+            <Modal show={this.props.isVisible} onHide={this.props.hideRegister}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Log In</Modal.Title>
+                    <Modal.Title>Register</Modal.Title>
                 </Modal.Header>
                 <Form>
                     <Modal.Body>
@@ -55,12 +62,21 @@ export default class Login extends Component {
                                     onChange={this.handlePasswordChange}
                                 />
                             </Form.Group>
+                            <Form.Group controlId="formLoginConfirmPassword">
+                                <Form.Label>Confirm Password</Form.Label>
+                                <Form.Control
+                                    type="password" 
+                                    placeholder="Confirm password" 
+                                    value={this.state.confirmPassword} 
+                                    onChange={this.handleConfirmPasswordChange}
+                                />
+                            </Form.Group>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="primary" onClick={this.handleLogin}>
-                            Login
+                        <Button variant="primary" onClick={this.handleRegister}>
+                            Register
                         </Button>
-                        <Button variant="secondary" onClick={this.props.hideLogin}>
+                        <Button variant="secondary" onClick={this.props.hideRegister}>
                             Close
                         </Button>
                     </Modal.Footer>

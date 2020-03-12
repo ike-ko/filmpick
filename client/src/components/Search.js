@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { FormControl, Button, Container, InputGroup, Image, Media, Col, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import SelectedSearchOptions from '../containers/SelectedSearchOptions';
-import SetFavoriteButton from '../containers/SetFavoriteButton'
+import SearchOptionsContainer from '../containers/SearchOptionsContainer';
+import FavoriteButtonContainer from '../containers/FavoriteButtonContainer'
 
 import testMovieResults from '../testMovieResults.json';    // remove once unneeded
 import testGenreIds from '../testGenreIds.json';
@@ -71,7 +71,7 @@ export default class Search extends Component {
                         {item.poster_path 
                             ? <Image height="138px" src={`https://image.tmdb.org/t/p/w92/${item.poster_path}`} rounded className="mr-3" />
                             : <div className="mr-3 border border-secondary rounded text-center bg-secondary" style={{height:"138px", width:"92px"}}>
-                                <FontAwesomeIcon icon="question" size="5x" className="align-self-center mt-4" />
+                                <FontAwesomeIcon icon="question" size="5x" className="align-self-center mt-4 text-white" />
                             </div>
                         }
                         <Media.Body className="h-100 d-flex flex-column">
@@ -79,7 +79,7 @@ export default class Search extends Component {
                             <h6>{matchedGenres}</h6>
                             <p>{overview}</p>
 
-                            <SetFavoriteButton 
+                            <FavoriteButtonContainer 
                                 movieId={item.id}
                             />
                         </Media.Body>
@@ -94,7 +94,7 @@ export default class Search extends Component {
     render() {
         return (
             <Container fluid className="main bg-light">
-                <SelectedSearchOptions 
+                <SearchOptionsContainer 
                     isVisible={this.state.isOptionVisible}
                     hideSearchOptions={this.hideSearchOptions}
                 />

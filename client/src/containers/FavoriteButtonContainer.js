@@ -1,15 +1,14 @@
 import { connect } from 'react-redux'
 import { setFavorite } from '../actions'
-import SearchFavoritebutton from '../components/SearchFavoriteButton'
+import FavoriteButton from '../components/FavoriteButton'
 
 const mapStateToProps = (state, ownProps) => ({
-    favoriteIds: state.setFavorite.favorites,
+    favoriteIds: state.userData.favorites,
     movieId: ownProps.movieId
 })
 
 const mapDispatchToProps = dispatch => ({
     setFavorite: id => dispatch(setFavorite(id)),
-
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchFavoritebutton)
+export default connect(mapStateToProps, mapDispatchToProps)(FavoriteButton)

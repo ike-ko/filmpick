@@ -6,7 +6,8 @@ import { faFilm, faSlidersH, faSearch, faQuestion, faHeart } from '@fortawesome/
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Navigation from './components/Navigation';
+import NavigationContainer from './containers/NavigationContainer';
+
 import Search from './components/Search';
 import Favorites from './components/Favorites';
 import Recommendations from './components/Recommendations';
@@ -25,7 +26,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Navigation />
+        <NavigationContainer />
 
         <Route path="/" exact component={Search} />
         <Route path="/favorites" component={Favorites} />

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import searchOptions from './searchOptions';
-import setFavorite from './setFavorite';
+import userData from './userData';
 
 export default combineReducers({
     searchOptions,
-    setFavorite
+    userData
 })

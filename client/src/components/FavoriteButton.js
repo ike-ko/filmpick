@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export default class SearchFavoriteButton extends Component {
+export default class FavoriteButton extends Component {
 
     handleSetFavorite = (e) => {
         this.props.setFavorite(this.props.movieId);

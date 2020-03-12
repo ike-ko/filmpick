@@ -1,3 +1,8 @@
+export const setLogin = status => ({
+    type: 'SET_LOGIN',
+    status
+})
+
 export const setFavorite = id => ({
     type: 'SET_FAVORITE',
     id
