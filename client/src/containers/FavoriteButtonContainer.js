@@ -3,6 +3,7 @@ import { setFavorite } from '../actions'
 import FavoriteButton from '../components/FavoriteButton'
 
 const mapStateToProps = (state, ownProps) => ({
+    isLoggedIn: state.userData.isLoggedIn,
     favoriteIds: state.userData.favorites,
     movieId: ownProps.movieId
 })

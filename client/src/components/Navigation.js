@@ -58,20 +58,20 @@ export default class Navigation extends Component {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Link as={Link} to="/">Search</Nav.Link>
-                        <Nav.Link as={Link} to="/favorites">Favorites</Nav.Link>
-                        <Nav.Link as={Link} to="/recommendations">Recommendations</Nav.Link>
+                        <Nav.Link eventKey="1" as={Link} to="/">Search</Nav.Link>  {/* Need eventKey to make collapseOnSelect work */}
+                        <Nav.Link eventKey="2" as={Link} to="/favorites">Favorites</Nav.Link>
+                        <Nav.Link eventKey="3" as={Link} to="/recommendations">Recommendations</Nav.Link>
                     </Nav>
                     { this.props.isLoggedIn 
                         ? 
                         <Nav>
                             {/* <Nav.Link>Account</Nav.Link> */}
-                            <Nav.Link onClick={() => this.props.setLogin(false)}>Log Out</Nav.Link>
+                            <Nav.Link eventKey="4" onClick={() => this.props.setLogin(false)}>Log Out</Nav.Link>
                         </Nav>
                         :
                         <Nav>
-                            <Nav.Link onClick={this.showRegister}>Register</Nav.Link>
-                            <Nav.Link onClick={this.showLogin}>Log In</Nav.Link>
+                            <Nav.Link eventKey="5" onClick={this.showRegister}>Register</Nav.Link>
+                            <Nav.Link eventKey="6" onClick={this.showLogin}>Log In</Nav.Link>
                         </Nav>
                     }
                 </Navbar.Collapse>
