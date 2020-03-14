@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormControl, Button, Container, InputGroup, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import Card from './Card';
+import SearchCard from './SearchCard';
 import SearchOptionsContainer from '../containers/SearchOptionsContainer';
 
 import testMovieResults from '../testMovieResults.json';    // remove once unneeded
@@ -59,7 +59,7 @@ export default class Search extends Component {
             });
 
             displayCards.push(
-                <Card 
+                <SearchCard 
                     key={item.id}
                     id={item.id}
                     posterPath={item.poster_path}
@@ -71,7 +71,7 @@ export default class Search extends Component {
             );
         })
 
-        return <Row className="">{displayCards}</Row>;
+        return <Row>{displayCards}</Row>;
     }
 
     render() {

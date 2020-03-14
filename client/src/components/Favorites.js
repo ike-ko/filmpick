@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row } from 'react-bootstrap';
 
-import Card from './Card';
+import SearchCard from './SearchCard';
 
 import testMovieResults from '../testMovieResults.json';    // remove once unneeded
 import testGenreIds from '../testGenreIds.json';
@@ -32,7 +32,7 @@ export default class Favorites extends Component {
                 });
     
                 displayCards.push(
-                    <Card
+                    <SearchCard
                         key={item.id}
                         id={item.id}
                         posterPath={item.poster_path}
@@ -45,7 +45,7 @@ export default class Favorites extends Component {
             }
         })
 
-        return <Row className="">{displayCards}</Row>;
+        return <Row>{displayCards}</Row>;
     }
 
     render() {
@@ -57,7 +57,7 @@ export default class Favorites extends Component {
                     :
                     <>
                         <h3>No favorites found!</h3>
-                        <h5>Search and favorite movies to add them here and see recommendations!</h5>
+                        <h5>Search and favorite movies/TV shows to add them here!</h5>
                     </>
                 }
             </Container>

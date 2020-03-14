@@ -8,9 +8,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import NavigationContainer from './containers/NavigationContainer';
 import FavoritesContainer from './containers/FavoritesContainer';
+import RecommendationsContainer from './containers/RecommendationsContainer';
 
 import Search from './components/Search';
-import Recommendations from './components/Recommendations';
 import Login from './components/Login';
 
 // Add FontAwesome icons to library here
@@ -30,7 +30,7 @@ class App extends Component {
 
         <Route path="/" exact component={Search} />
         <Route path="/favorites" component={FavoritesContainer} />
-        <Route path="/recommendations" component={Recommendations} />
+        <Route path="/recommendations" component={RecommendationsContainer} />
         <Route path="/login" component={Login} />
       </Router>
     );

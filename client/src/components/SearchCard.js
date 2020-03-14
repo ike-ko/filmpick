@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import FavoriteButtonContainer from '../containers/FavoriteButtonContainer';
 
-export default class Card extends Component {
+export default class SearchCard extends Component {
     render() {
         return (
             <Col 

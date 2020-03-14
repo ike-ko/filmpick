@@ -59,8 +59,18 @@ export default class Navigation extends Component {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
                         <Nav.Link eventKey="1" as={Link} to="/">Search</Nav.Link>  {/* Need eventKey to make collapseOnSelect work */}
-                        <Nav.Link eventKey="2" as={Link} to="/favorites">Favorites</Nav.Link>
-                        <Nav.Link eventKey="3" as={Link} to="/recommendations">Recommendations</Nav.Link>
+                        { this.props.isLoggedIn 
+                            ?
+                            <>
+                                <Nav.Link eventKey="2" as={Link} to="/favorites">Favorites</Nav.Link>
+                                <Nav.Link eventKey="3" as={Link} to="/recommendations">Recommendations</Nav.Link>
+                            </>
+                            :
+                            <>
+                                <Nav.Link eventKey="2" onClick={this.showLogin}>Favorites</Nav.Link>
+                                <Nav.Link eventKey="3" onClick={this.showLogin}>Recommendations</Nav.Link>
+                            </>
+                        }
                     </Nav>
                     { this.props.isLoggedIn 
                         ? 
