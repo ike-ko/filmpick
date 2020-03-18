@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 
-import { loginUser } from '../api/user';
-import { isLoginValid } from '../utils/validations';
+import { registerUser } from '../api/user';
+import { isRegistrationValid } from '../utils/validations';
 
 const initialState = {
     username: "",
     password: "",
-    loginError: ""
+    confirmPassword: "",
+    registerError: ""
 }
 
-export default class Login extends Component {
+export default class Register extends Component {
     constructor() {
         super();
 
@@ -30,34 +31,40 @@ export default class Login extends Component {
             password: e.target.value
         });
     }
+    
+    handleConfirmPasswordChange = (e) => {
+        this.setState({
+            confirmPassword: e.target.value
+        });
+    }
 
     handleCloseModal = () => {
         this.setState({
             ...initialState
         });
-        this.props.hideLogin();
+        this.props.hideRegister();
     }
 
-    handleLogin = async () => {
-        let { username, password } = this.state;
-        const validationLogin = isLoginValid(username, password);
+    handleRegister = async () => {
+        let { username, password, confirmPassword } = this.state;
+        const validationRes = isRegistrationValid(username, password, confirmPassword);
 
-        if (validationLogin.success) {
-            const loginRes = await loginUser(username, password);
+        if (validationRes.success) {
+            const regRes = await registerUser(username, password);
 
-            if (loginRes.data.success) {
+            if (regRes.data.success) {
                 this.props.setLogin(true);
                 this.handleCloseModal();
             }
             else {
                 this.setState({
-                    loginError: loginRes.data.message
-                });
+                    registerError: regRes.data.message
+                })
             }
         }
         else {
             this.setState({
-                loginError: validationLogin.message
+                registerError: validationRes.message
             })
         }
     }
@@ -66,7 +73,7 @@ export default class Login extends Component {
         return (
             <Modal show={this.props.isVisible} onHide={this.handleCloseModal}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Log In</Modal.Title>
+                    <Modal.Title>Register</Modal.Title>
                 </Modal.Header>
                 <Form>
                     <Modal.Body>
@@ -88,11 +95,20 @@ export default class Login extends Component {
                                     onChange={this.handlePasswordChange}
                                 />
                             </Form.Group>
-                            {this.state.loginError && <Form.Label className="text-danger">{this.state.loginError}</Form.Label>}
+                            <Form.Group controlId="formLoginConfirmPassword">
+                                <Form.Label>Confirm Password</Form.Label>
+                                <Form.Control
+                                    type="password" 
+                                    placeholder="Confirm password" 
+                                    value={this.state.confirmPassword} 
+                                    onChange={this.handleConfirmPasswordChange}
+                                />
+                            </Form.Group>
+                            {this.state.registerError && <Form.Label className="text-danger">{this.state.registerError}</Form.Label>}
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="primary" onClick={this.handleLogin}>
-                            Login
+                        <Button variant="primary" onClick={this.handleRegister}>
+                            Register
                         </Button>
                         <Button variant="secondary" onClick={this.handleCloseModal}>
                             Close
