@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 
+import { loginUser } from '../api/user';
+import { isLoginValid } from '../utils/validations';
+
+const initialState = {
+    username: "",
+    password: "",
+    loginError: ""
+}
+
 export default class Login extends Component {
     constructor() {
         super();
 
         this.state = {
-            username: "",
-            password: ""
+            ...initialState
         }
     }
 
@@ -23,15 +31,40 @@ export default class Login extends Component {
         });
     }
 
-    // TODO: add login logic
-    handleLogin = () => {
-        this.props.setLogin(true);
+    handleCloseModal = () => {
+        this.setState({
+            ...initialState
+        });
         this.props.hideLogin();
+    }
+
+    handleLogin = async () => {
+        let { username, password } = this.state;
+        const validationLogin = isLoginValid(username, password);
+
+        if (validationLogin.success) {
+            const loginRes = await loginUser(username, password);
+
+            if (loginRes.data.success) {
+                this.props.setLogin(true);
+                this.handleCloseModal();
+            }
+            else {
+                this.setState({
+                    loginError: loginRes.data.message
+                });
+            }
+        }
+        else {
+            this.setState({
+                loginError: validationLogin.message
+            })
+        }
     }
 
     render() {
         return (
-            <Modal show={this.props.isVisible} onHide={this.props.hideLogin}>
+            <Modal show={this.props.isVisible} onHide={this.handleCloseModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>Log In</Modal.Title>
                 </Modal.Header>
@@ -55,12 +88,13 @@ export default class Login extends Component {
                                     onChange={this.handlePasswordChange}
                                 />
                             </Form.Group>
+                            {this.state.loginError && <Form.Label className="text-danger">{this.state.loginError}</Form.Label>}
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="primary" onClick={this.handleLogin}>
                             Login
                         </Button>
-                        <Button variant="secondary" onClick={this.props.hideLogin}>
+                        <Button variant="secondary" onClick={this.handleCloseModal}>
                             Close
                         </Button>
                     </Modal.Footer>

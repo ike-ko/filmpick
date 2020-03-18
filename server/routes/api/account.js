@@ -48,9 +48,21 @@ module.exports = app => {
                         message: 'Error: Server error'
                     });
                 }
-                return res.send({
-                    success: true,
-                    message: 'Registration successful'
+                const userSession = new UserSession();
+                userSession.userId = user._id;
+                userSession.save((err, doc) => {
+                    if (err) {
+                        console.log(err);
+                        return res.send({
+                            success: false,
+                            message: 'Error: Server error'
+                        });
+                    }
+                    return res.send({
+                        success: true,
+                        message: 'Registration successful',
+                        token: doc._id
+                    });
                 });
             });
         });
@@ -82,23 +94,23 @@ module.exports = app => {
             if (err) {
                 console.log('err 2:', err);
                 return res.send({
-                success: false,
-                message: 'Error: Server error'
+                    success: false,
+                    message: 'Error: Server error'
                 });
             }
 
             if (users.length != 1) {
                 return res.send({
-                success: false,
-                message: 'Error: Invalid'
+                    success: false,
+                    message: 'Error: Invalid'
                 });
             }
 
             const user = users[0];
             if (!user.validPassword(password)) {
                 return res.send({
-                success: false,
-                message: 'Error: Invalid'
+                    success: false,
+                    message: 'Error: Invalid'
                 });
             }
             
@@ -114,9 +126,9 @@ module.exports = app => {
                 });
                 }
                 return res.send({
-                success: true,
-                message: 'Log in successful',
-                token: doc._id
+                    success: true,
+                    message: 'Log in successful',
+                    token: doc._id
                 });
             });
         });

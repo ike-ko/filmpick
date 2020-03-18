@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 
+import { registerUser } from '../api/user';
+import { isRegistrationValid } from '../utils/validations';
+
+const initialState = {
+    username: "",
+    password: "",
+    confirmPassword: "",
+    registerError: ""
+}
+
 export default class Register extends Component {
     constructor() {
         super();
 
         this.state = {
-            username: "",
-            password: "",
-            confirmPassword: ""
+            ...initialState
         }
     }
 
@@ -30,15 +38,40 @@ export default class Register extends Component {
         });
     }
 
-    // TODO: add register logic
-    handleRegister = () => {
-        this.props.setLogin(true);
+    handleCloseModal = () => {
+        this.setState({
+            ...initialState
+        });
         this.props.hideRegister();
+    }
+
+    handleRegister = async () => {
+        let { username, password, confirmPassword } = this.state;
+        const validationRes = isRegistrationValid(username, password, confirmPassword);
+
+        if (validationRes.success) {
+            const regRes = await registerUser(username, password);
+
+            if (regRes.data.success) {
+                this.props.setLogin(true);
+                this.handleCloseModal();
+            }
+            else {
+                this.setState({
+                    registerError: regRes.data.message
+                })
+            }
+        }
+        else {
+            this.setState({
+                registerError: validationRes.message
+            })
+        }
     }
 
     render() {
         return (
-            <Modal show={this.props.isVisible} onHide={this.props.hideRegister}>
+            <Modal show={this.props.isVisible} onHide={this.handleCloseModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>Register</Modal.Title>
                 </Modal.Header>
@@ -71,12 +104,13 @@ export default class Register extends Component {
                                     onChange={this.handleConfirmPasswordChange}
                                 />
                             </Form.Group>
+                            {this.state.registerError && <Form.Label className="text-danger">{this.state.registerError}</Form.Label>}
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="primary" onClick={this.handleRegister}>
                             Register
                         </Button>
-                        <Button variant="secondary" onClick={this.props.hideRegister}>
+                        <Button variant="secondary" onClick={this.handleCloseModal}>
                             Close
                         </Button>
                     </Modal.Footer>

@@ -6,6 +6,7 @@ import { Navbar, Nav } from 'react-bootstrap';
 
 import RegisterContainer from '../containers/RegisterContainer';
 import LoginContainer from '../containers/LoginContainer';
+import { logoutUser } from '../api/user';
 
 export default class Navigation extends Component {
     constructor() {
@@ -39,6 +40,11 @@ export default class Navigation extends Component {
         this.setState({
             isLoginVisible: false
         });
+    }
+
+    handleLogOut = async () => {
+        await logoutUser();
+        this.props.setLogin(false);
     }
 
     render() {
@@ -76,7 +82,7 @@ export default class Navigation extends Component {
                         ? 
                         <Nav>
                             {/* <Nav.Link>Account</Nav.Link> */}
-                            <Nav.Link eventKey="4" onClick={() => this.props.setLogin(false)}>Log Out</Nav.Link>
+                            <Nav.Link eventKey="4" onClick={this.handleLogOut}>Log Out</Nav.Link>
                         </Nav>
                         :
                         <Nav>
