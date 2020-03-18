@@ -22,7 +22,7 @@ export default class SearchCard extends Component {
                         </div>
                     }
                     <Media.Body className="h-100 d-flex flex-column">
-                        <h5>{`${this.props.title} (${this.props.releaseDate.substring(0, 4)})`}</h5>
+                        <h5>{`${this.props.title} ${this.props.releaseDate && `(${this.props.releaseDate.substring(0, 4)})`}`}</h5>
                         <h6>{this.props.matchedGenres}</h6>
                         <p>{this.props.overview}</p>
 

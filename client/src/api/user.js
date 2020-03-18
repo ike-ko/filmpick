@@ -47,7 +47,11 @@ export const logoutUser = async () => {
     if (obj && obj.token) {
         return await resolve(
             axios.get(
-                `/api/account/logout?token=${obj.token}`
+                `/api/account/logout`, {
+                    params: {
+                        token: obj.token
+                    }
+                }
             ).then(res => {
                 if (res.data.success) {
                     removeFromStorage(FILMPICK_STORAGE);
@@ -65,7 +69,11 @@ export const verifyUser = async () => {
     if (obj && obj.token) {
         return await resolve(
             axios.get(
-                `/api/account/verify?token=${obj.token}`
+                `/api/account/verify`, {
+                    params: {
+                        token: obj.token
+                    }
+                }
             ).then(res => {
                 return res.data;
             })

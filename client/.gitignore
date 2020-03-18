@@ -21,3 +21,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+testGenreIds.json
+testMoviesResults.json
+testRecommendations.json

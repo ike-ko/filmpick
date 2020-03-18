@@ -4,8 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import SearchCard from './SearchCard';
 import SearchOptionsContainer from '../containers/SearchOptionsContainer';
+import { searchTMDB } from '../api/search';
+import { isSearchQueryValid } from '../utils/validations';
 
-import testMovieResults from '../testMovieResults.json';    // remove once unneeded
+// import testMovieResults from '../testMovieResults.json';    // remove once unneeded
 import testGenreIds from '../testGenreIds.json';
 
 export default class Search extends Component {
@@ -14,7 +16,8 @@ export default class Search extends Component {
 
         this.state = {
             isOptionVisible: false,
-            searchData: null
+            searchData: null,
+            searchQuery: ""
         };
     }
 
@@ -29,16 +32,33 @@ export default class Search extends Component {
             isOptionVisible: false
         });
     }
-    
-    // TODO: replace placeholder
-    submitSearch = () => {
+
+    handleSearchQueryChange = (e) => {
         this.setState({
-            searchData: testMovieResults
-        });
+            searchQuery: e.target.value
+        })
+    }
+    
+    submitSearch = async () => {
+        const { searchQuery } = this.state;
+        const { searchForOption, sortByOption } = this.props;
+        const validationSearch = isSearchQueryValid(searchQuery)
+
+        if (validationSearch.success) {
+            const searchResults = await searchTMDB(
+                searchQuery,
+                searchForOption === 'MOVIES' ? 'movie' : 'tv',
+                sortByOption.toLowerCase()
+            );
+            this.setState({
+                searchData: searchResults.data.results
+            });
+        }
     }
 
     generateSearchResults = (data) => {
         let displayCards = [];
+        console.log(data)
         data.results.forEach(item => {
             let overview = item.overview;
             if (overview.length > 200)
@@ -86,7 +106,14 @@ export default class Search extends Component {
                     <Button size="lg" variant="outline-primary" className="mr-2" onClick={this.showSearchOptions}>
                         <FontAwesomeIcon icon="sliders-h" size="lg"/>
                     </Button>
-                    <FormControl size="lg" type="text" placeholder="Search" className="rounded mr-2" />
+                    <FormControl 
+                        size="lg"
+                        type="text"
+                        placeholder="Search"
+                        className="rounded mr-2"
+                        value={this.state.searchQuery}
+                        onChange={this.handleSearchQueryChange}
+                    />
                     <Button size="lg" variant="outline-primary" onClick={this.submitSearch}>
                         <FontAwesomeIcon icon="search" size="lg"/>
                     </Button>
