@@ -2,6 +2,11 @@ import axios from 'axios';
 import { resolve } from './common.js';
 import { FILMPICK_STORAGE, setInStorage, getFromStorage, removeFromStorage } from '../utils/storage';
 
+const INVALID_TOKEN = {
+    'success': false,
+    'message': 'Token not found'
+}
+
 export const registerUser = async (username, password) => {
     return await resolve(
         axios.post(
@@ -51,6 +56,7 @@ export const logoutUser = async () => {
             })
         );
     }
+    return INVALID_TOKEN;
 }
 
 export const verifyUser = async () => {
@@ -65,4 +71,5 @@ export const verifyUser = async () => {
             })
         );
     }
+    return INVALID_TOKEN;
 }
