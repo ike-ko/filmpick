@@ -136,8 +136,7 @@ module.exports = app => {
 
     app.get('/api/account/logout', (req, res) => {
         const { query } = req;
-        // ?token=
-        const { token } = query;
+        const { token } = query;        // ?token=
 
         UserSession.findOneAndUpdate({
             _id: token,
@@ -151,7 +150,7 @@ module.exports = app => {
                 console.error(err);
                 return res.send({
                     success: false,
-                    message: 'Error: Server error'
+                    message: 'Server error'
                 });
             }
             return res.send({
@@ -163,8 +162,7 @@ module.exports = app => {
 
     app.get('/api/account/verify', (req, res) => {
         const { query } = req;
-        // ?token=
-        const { token } = query;
+        const { token } = query;        // ?token=
 
         UserSession.find({
             _id: token,
@@ -174,13 +172,13 @@ module.exports = app => {
                 console.error(err);
                 return res.send({
                     success: false,
-                    message: 'Error: Server error'
+                    message: 'Server error'
                 });
             }
             if (sessions.length != 1) {
                 return res.send({
                     success: false,
-                    message: 'Error: Invalid'
+                    message: 'Invalid session'
                 });
             } else {
                 return res.send({
