@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 
 import { loginUser } from '../api/user';
+import { getFavorites } from '../api/favorites'
 import { isLoginValid } from '../utils/validations';
 
 const initialState = {
@@ -47,6 +48,11 @@ export default class Login extends Component {
 
             if (loginRes.data.success) {
                 this.props.setLogin(true);
+
+                const favRes = await getFavorites();
+                if (favRes.data && favRes.data.favorites)
+                    this.props.setFavorites(favRes.data.favorites);
+
                 this.handleCloseModal();
             }
             else {

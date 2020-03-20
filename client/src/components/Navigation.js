@@ -6,8 +6,7 @@ import { Navbar, Nav } from 'react-bootstrap';
 
 import RegisterContainer from '../containers/RegisterContainer';
 import LoginContainer from '../containers/LoginContainer';
-import { logoutUser, verifyUser } from '../api/user';
-import { FILMPICK_STORAGE, getFromStorage } from '../utils/storage'
+import { logoutUser } from '../api/user';
 
 export default class Navigation extends Component {
     constructor() {
@@ -17,16 +16,6 @@ export default class Navigation extends Component {
             isLoginVisible: false,
             isRegisterVisible: false
         };
-    }
-
-    async componentDidMount() {
-        if (getFromStorage(FILMPICK_STORAGE)) {
-            const verifyRes = await verifyUser();
-
-            if (verifyRes.data && verifyRes.data.success) {
-                this.props.setLogin(true);
-            }
-        }
     }
 
     showRegister = () => {

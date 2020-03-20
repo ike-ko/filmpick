@@ -31,7 +31,9 @@ module.exports = app => {
                     $push: {
                         favorites: item
                     }
-                }, null, (err, users) => {
+                }, {
+                    new: true
+                }, (err, user) => {
                     if (err) {
                         console.error(err);
                         return res.send({
@@ -41,7 +43,8 @@ module.exports = app => {
                     }
                     return res.send({
                         success: true,
-                        message: 'Add favorite successful'
+                        message: 'Add favorite successful',
+                        favorites: user.favorites
                     });
                 })
             }
@@ -49,9 +52,8 @@ module.exports = app => {
     });
 
     app.delete('/api/favorites', (req, res) => {
-        const { body, query } = req;
-        const { token } = query;        // ?token=
-        const { itemId } = body;
+        const { query } = req;
+        const { item_id, token } = query;        // ?token=&item_id=
 
         UserSession.find({
             _id: token,
@@ -76,10 +78,12 @@ module.exports = app => {
                 }, {
                     $pull: {
                         favorites: {
-                            id: itemId
+                            id: parseInt(item_id)
                         }
                     }
-                }, null, (err, users) => {
+                }, {
+                    new: true
+                }, (err, user) => {
                     if (err) {
                         console.error(err);
                         return res.send({
@@ -89,7 +93,8 @@ module.exports = app => {
                     }
                     return res.send({
                         success: true,
-                        message: 'Remove favorite successful'
+                        message: 'Remove favorite successful',
+                        favorites: user.favorites
                     });
                 })
             }
@@ -136,7 +141,7 @@ module.exports = app => {
                     }
                     return res.send({
                         success: true,
-                        message: 'Add favorite successful',
+                        message: 'Get favorites successful',
                         favorites: users[0].favorites
                     });
                 })

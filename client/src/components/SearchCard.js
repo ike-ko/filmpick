@@ -10,8 +10,7 @@ export default class SearchCard extends Component {
     render() {
         const {
             poster_path,
-            genre_ids,
-            id
+            genre_ids
         } = this.props.details;
         let { overview } = this.props.details;
 
@@ -26,9 +25,9 @@ export default class SearchCard extends Component {
             overview = overview.substring(0, 200) + "..";
 
         let matchedGenres = "";
-        genre_ids.forEach(id => {
+        genre_ids.forEach(gid => {
             testGenreIds.genres.forEach(genre => {
-                if (genre.id === id) {
+                if (genre.id === gid) {
                     if (!matchedGenres) {
                         matchedGenres = genre.name;
                     }
@@ -60,7 +59,7 @@ export default class SearchCard extends Component {
                         <p>{overview}</p>
 
                         <FavoriteButtonContainer 
-                            movieId={id}
+                            details={this.props.details}
                         />
                     </Media.Body>
                 </Media>

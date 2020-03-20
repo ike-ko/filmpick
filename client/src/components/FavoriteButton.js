@@ -2,17 +2,29 @@ import React, { Component } from 'react';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { addFavorite, removeFavorite } from '../api/favorites';
+
 export default class FavoriteButton extends Component {
 
-    handleSetFavorite = (e) => {
-        this.props.setFavorite(this.props.movieId);
+    isInFavorites = () => {
+        return this.props.favorites.find(item => item.id === this.props.details.id);
+    }
+
+    handleSetFavorite = async (e) => {
+        const favRes = this.isInFavorites() 
+            ? await removeFavorite(this.props.details.id)
+            : await addFavorite(this.props.details);
+
+        if (favRes.data && favRes.data.success) {
+            this.props.setFavorites(favRes.data.favorites);
+        }
     }
 
     render() {
         return (
             this.props.isLoggedIn ?
                 <Button 
-                    variant={this.props.favoriteIds.includes(this.props.movieId) ? "danger" : "secondary"}
+                    variant={this.isInFavorites() ? "danger" : "secondary"}
                     className="mt-auto"
                     onClick={this.handleSetFavorite}
                 >

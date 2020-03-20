@@ -5,7 +5,7 @@ import { createStore } from 'redux'
 import rootReducer from './reducers'
 
 import './index.css';
-import App from './App';
+import AppContainer from './containers/AppContainer';
 import * as serviceWorker from './serviceWorker';
 
 const store = createStore(
@@ -15,7 +15,7 @@ const store = createStore(
 
 render(
     <Provider store={store}>
-        <App />
+        <AppContainer />
     </Provider>,
     document.getElementById('root')
 );
