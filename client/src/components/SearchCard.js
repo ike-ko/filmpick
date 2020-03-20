@@ -4,8 +4,40 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import FavoriteButtonContainer from '../containers/FavoriteButtonContainer';
 
+import testGenreIds from '../testGenreIds.json'; // delete when done
+
 export default class SearchCard extends Component {
     render() {
+        const {
+            poster_path,
+            genre_ids
+        } = this.props.details;
+        let { overview } = this.props.details;
+
+        const title = this.props.details.title || this.props.details.name;
+        const releaseDate = this.props.details.release_date || this.props.details.first_air_date;
+
+        let cardHeader = releaseDate 
+            ? `${title} (${releaseDate.substring(0, 4)})`
+            : title;
+
+        if (overview.length > 200)
+            overview = overview.substring(0, 200) + "..";
+
+        let matchedGenres = "";
+        genre_ids.forEach(gid => {
+            testGenreIds.genres.forEach(genre => {
+                if (genre.id === gid) {
+                    if (!matchedGenres) {
+                        matchedGenres = genre.name;
+                    }
+                    else {
+                        matchedGenres += ", " + genre.name;
+                    }
+                }
+            })
+        });
+
         return (
             <Col 
                 sm={12}
@@ -15,19 +47,19 @@ export default class SearchCard extends Component {
                 className="mb-3 p-3"
             >
                 <Media className="h-100 p-3 border border-secondary rounded bg-white">
-                    {this.props.posterPath 
-                        ? <Image height="138px" src={`https://image.tmdb.org/t/p/w92/${this.props.posterPath}`} rounded className="mr-3" />
+                    {poster_path 
+                        ? <Image height="138px" src={`https://image.tmdb.org/t/p/w92/${poster_path}`} rounded className="mr-3" />
                         : <div className="mr-3 border border-secondary rounded text-center bg-secondary" style={{height:"138px", width:"92px"}}>
                             <FontAwesomeIcon icon="question" size="5x" className="align-self-center mt-4 text-white" />
                         </div>
                     }
                     <Media.Body className="h-100 d-flex flex-column">
-                        <h5>{`${this.props.title} (${this.props.releaseDate.substring(0, 4)})`}</h5>
-                        <h6>{this.props.matchedGenres}</h6>
-                        <p>{this.props.overview}</p>
+                        <h5>{cardHeader}</h5>
+                        <h6>{matchedGenres}</h6>
+                        <p>{overview}</p>
 
                         <FavoriteButtonContainer 
-                            movieId={this.props.id}
+                            details={this.props.details}
                         />
                     </Media.Body>
                 </Media>

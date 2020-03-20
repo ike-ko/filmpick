@@ -9,32 +9,52 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import NavigationContainer from './containers/NavigationContainer';
 import FavoritesContainer from './containers/FavoritesContainer';
 import RecommendationsContainer from './containers/RecommendationsContainer';
+import SearchContainer from './containers/SearchContainer';
 
-import Search from './components/Search';
 import Login from './components/Login';
+
+import { verifyUser } from './api/user';
+import { getFavorites } from './api/favorites';
+import { FILMPICK_STORAGE, getFromStorage } from './utils/storage';
 
 // Add FontAwesome icons to library here
 library.add(
-  faFilm,
-  faSlidersH,
-  faSearch,
-  faQuestion,
-  faHeart
+    faFilm,
+    faSlidersH,
+    faSearch,
+    faQuestion,
+    faHeart
 );
 
 class App extends Component {
-  render() {
-    return (
-      <Router>
-        <NavigationContainer />
+    
+    //  Verify login and load existing favorites
+    async componentDidMount() {
+        if (getFromStorage(FILMPICK_STORAGE)) {
+            const verifyRes = await verifyUser();
 
-        <Route path="/" exact component={Search} />
-        <Route path="/favorites" component={FavoritesContainer} />
-        <Route path="/recommendations" component={RecommendationsContainer} />
-        <Route path="/login" component={Login} />
-      </Router>
-    );
-  }
+            if (verifyRes.data && verifyRes.data.success) {
+                this.props.setLogin(true);
+
+                const favRes = await getFavorites();
+                if (favRes.data && favRes.data.favorites)
+                    this.props.setFavorites(favRes.data.favorites);
+            }
+        }
+    }
+
+    render() {
+        return (
+            <Router>
+                <NavigationContainer />
+
+                <Route path="/" exact component={SearchContainer} />
+                <Route path="/favorites" component={FavoritesContainer} />
+                <Route path="/recommendations" component={RecommendationsContainer} />
+                <Route path="/login" component={Login} />
+            </Router>
+        );
+    }
 }
 
 export default App;

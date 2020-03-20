@@ -1,5 +1,10 @@
 export const FILMPICK_STORAGE = "FILMPICK_STORAGE";
 
+export const INVALID_TOKEN = {
+    'success': false,
+    'message': 'Token not found'
+}
+
 export const getFromStorage = (key) => {
     if (!key) {
         return null;

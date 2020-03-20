@@ -4,9 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import SearchCard from './SearchCard';
 import SearchOptionsContainer from '../containers/SearchOptionsContainer';
+import { searchTMDB } from '../api/search';
+import { isSearchQueryValid } from '../utils/validations';
 
-import testMovieResults from '../testMovieResults.json';    // remove once unneeded
-import testGenreIds from '../testGenreIds.json';
+// import testMovieResults from '../testMovieResults.json';    // remove once unneeded
+// import testGenreIds from '../testGenreIds.json';
 
 export default class Search extends Component {
     constructor() {
@@ -14,7 +16,8 @@ export default class Search extends Component {
 
         this.state = {
             isOptionVisible: false,
-            searchData: null
+            searchData: null,
+            searchQuery: ""
         };
     }
 
@@ -29,44 +32,44 @@ export default class Search extends Component {
             isOptionVisible: false
         });
     }
-    
-    // TODO: replace placeholder
-    submitSearch = () => {
+
+    handleSearchQueryChange = (e) => {
         this.setState({
-            searchData: testMovieResults
-        });
+            searchQuery: e.target.value
+        })
+    }
+
+    handleSearchQueryKeyPress = (e) => {
+        if (e.key === "Enter") {
+            this.submitSearch();
+        }
+    }
+    
+    submitSearch = async () => {
+        const { searchQuery } = this.state;
+        const { searchForOption, sortByOption } = this.props;
+        const validationSearch = isSearchQueryValid(searchQuery)
+
+        if (validationSearch.success) {
+            const searchResults = await searchTMDB(
+                encodeURIComponent(searchQuery),
+                searchForOption === 'MOVIES' ? 'movie' : 'tv',
+                sortByOption.toLowerCase()
+            );
+            this.setState({
+                searchData: this.generateSearchResults(searchResults.data.results)
+            });
+        }
     }
 
     generateSearchResults = (data) => {
         let displayCards = [];
+
         data.results.forEach(item => {
-            let overview = item.overview;
-            if (overview.length > 200)
-                overview = overview.substring(0, 200) + "..";
-
-            let matchedGenres = "";
-            item.genre_ids.forEach(id => {
-                testGenreIds.genres.forEach(genre => {
-                    if (genre.id === id) {
-                        if (!matchedGenres) {
-                            matchedGenres = genre.name;
-                        }
-                        else {
-                            matchedGenres += ", " + genre.name;
-                        }
-                    }
-                })
-            });
-
             displayCards.push(
                 <SearchCard 
                     key={item.id}
-                    id={item.id}
-                    posterPath={item.poster_path}
-                    title={item.title}
-                    releaseDate={item.release_date}
-                    matchedGenres={matchedGenres}
-                    overview={overview}
+                    details={item}
                 />
             );
         })
@@ -86,13 +89,21 @@ export default class Search extends Component {
                     <Button size="lg" variant="outline-primary" className="mr-2" onClick={this.showSearchOptions}>
                         <FontAwesomeIcon icon="sliders-h" size="lg"/>
                     </Button>
-                    <FormControl size="lg" type="text" placeholder="Search" className="rounded mr-2" />
+                    <FormControl 
+                        size="lg"
+                        type="text"
+                        placeholder="Search"
+                        className="rounded mr-2"
+                        value={this.state.searchQuery}
+                        onChange={this.handleSearchQueryChange}
+                        onKeyPress={this.handleSearchQueryKeyPress}
+                    />
                     <Button size="lg" variant="outline-primary" onClick={this.submitSearch}>
                         <FontAwesomeIcon icon="search" size="lg"/>
                     </Button>
                 </InputGroup>
 
-                {this.state.searchData && this.generateSearchResults(this.state.searchData)}
+                {this.state.searchData}
             </Container>
         )
     }

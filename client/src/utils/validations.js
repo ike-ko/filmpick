@@ -29,3 +29,17 @@ export const isLoginValid = (username, password) => {
     
     return res;
 }
+
+export const isSearchQueryValid = (query) => {
+    let res = {
+        success: true,
+        message: ""
+    }
+
+    if (!query) {
+        res.message = "Invalid search query"
+        res.success = false;
+    }
+
+    return res;
+}

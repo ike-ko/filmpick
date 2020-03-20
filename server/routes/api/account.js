@@ -10,13 +10,13 @@ module.exports = app => {
         if (!username) {
             return res.send({
                 success: false,
-                message: 'Error: Username cannot be blank'
+                message: 'Username cannot be blank'
             });
         }
         if (!password) {
             return res.send({
                 success: false,
-                message: 'Error: Password cannot be blank'
+                message: 'Password cannot be blank'
             });
         }
         username = username.trim();
@@ -27,12 +27,12 @@ module.exports = app => {
             if (err) {
                 return res.send({
                     success: false,
-                    message: 'Error: Server error'
+                    message: 'Server error'
                 });
             } else if (existingUsers.length > 0) {
                 return res.send({
                     success: false,
-                    message: 'Error: Username is not available'
+                    message: 'Username is not available'
                 });
             }
 
@@ -45,17 +45,17 @@ module.exports = app => {
                 if (err) {
                     return res.send({
                         success: false,
-                        message: 'Error: Server error'
+                        message: 'Server error'
                     });
                 }
                 const userSession = new UserSession();
                 userSession.userId = user._id;
                 userSession.save((err, doc) => {
                     if (err) {
-                        console.log(err);
+                        console.error(err);
                         return res.send({
                             success: false,
-                            message: 'Error: Server error'
+                            message: 'Server error'
                         });
                     }
                     return res.send({
@@ -76,13 +76,13 @@ module.exports = app => {
         if (!username) {
             return res.send({
                 success: false,
-                message: 'Error: Username cannot be blank'
+                message: 'Username cannot be blank'
             });
         }
         if (!password) {
             return res.send({
                 success: false,
-                message: 'Error: Password cannot be blank'
+                message: 'Password cannot be blank'
             });
         }
 
@@ -92,17 +92,17 @@ module.exports = app => {
             username: username
         }, (err, users) => {
             if (err) {
-                console.log('err 2:', err);
+                console.error('err 2:', err);
                 return res.send({
                     success: false,
-                    message: 'Error: Server error'
+                    message: 'Server error'
                 });
             }
 
             if (users.length != 1) {
                 return res.send({
                     success: false,
-                    message: 'Error: Invalid'
+                    message: 'Username/Password incorrect'
                 });
             }
 
@@ -110,7 +110,7 @@ module.exports = app => {
             if (!user.validPassword(password)) {
                 return res.send({
                     success: false,
-                    message: 'Error: Invalid'
+                    message: 'Username/Password incorrect'
                 });
             }
             
@@ -119,10 +119,10 @@ module.exports = app => {
             userSession.userId = user._id;
             userSession.save((err, doc) => {
                 if (err) {
-                console.log(err);
+                console.error(err);
                 return res.send({
                     success: false,
-                    message: 'Error: Server error'
+                    message: 'Server error'
                 });
                 }
                 return res.send({
@@ -136,8 +136,7 @@ module.exports = app => {
 
     app.get('/api/account/logout', (req, res) => {
         const { query } = req;
-        // ?token=
-        const { token } = query;
+        const { token } = query;        // ?token=
 
         UserSession.findOneAndUpdate({
             _id: token,
@@ -148,10 +147,10 @@ module.exports = app => {
             }
         }, null, (err, sessions) => {
             if (err) {
-                console.log(err);
+                console.error(err);
                 return res.send({
                     success: false,
-                    message: 'Error: Server error'
+                    message: 'Server error'
                 });
             }
             return res.send({
@@ -163,24 +162,23 @@ module.exports = app => {
 
     app.get('/api/account/verify', (req, res) => {
         const { query } = req;
-        // ?token=
-        const { token } = query;
+        const { token } = query;        // ?token=
 
         UserSession.find({
             _id: token,
             isDeleted: false
         }, (err, sessions) => {
             if (err) {
-                console.log(err);
+                console.error(err);
                 return res.send({
                     success: false,
-                    message: 'Error: Server error'
+                    message: 'Server error'
                 });
             }
             if (sessions.length != 1) {
                 return res.send({
                     success: false,
-                    message: 'Error: Invalid'
+                    message: 'Invalid session'
                 });
             } else {
                 return res.send({

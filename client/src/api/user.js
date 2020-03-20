@@ -1,11 +1,6 @@
 import axios from 'axios';
 import { resolve } from './common.js';
-import { FILMPICK_STORAGE, setInStorage, getFromStorage, removeFromStorage } from '../utils/storage';
-
-const INVALID_TOKEN = {
-    'success': false,
-    'message': 'Token not found'
-}
+import { FILMPICK_STORAGE, INVALID_TOKEN, setInStorage, getFromStorage, removeFromStorage } from '../utils/storage';
 
 export const registerUser = async (username, password) => {
     return await resolve(
@@ -47,7 +42,11 @@ export const logoutUser = async () => {
     if (obj && obj.token) {
         return await resolve(
             axios.get(
-                `/api/account/logout?token=${obj.token}`
+                '/api/account/logout', {
+                    params: {
+                        token: obj.token
+                    }
+                }
             ).then(res => {
                 if (res.data.success) {
                     removeFromStorage(FILMPICK_STORAGE);
@@ -65,7 +64,11 @@ export const verifyUser = async () => {
     if (obj && obj.token) {
         return await resolve(
             axios.get(
-                `/api/account/verify?token=${obj.token}`
+                '/api/account/verify', {
+                    params: {
+                        token: obj.token
+                    }
+                }
             ).then(res => {
                 return res.data;
             })

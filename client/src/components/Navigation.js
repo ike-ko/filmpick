@@ -6,7 +6,7 @@ import { Navbar, Nav } from 'react-bootstrap';
 
 import RegisterContainer from '../containers/RegisterContainer';
 import LoginContainer from '../containers/LoginContainer';
-import { logoutUser, verifyUser } from '../api/user';
+import { logoutUser } from '../api/user';
 
 export default class Navigation extends Component {
     constructor() {
@@ -16,14 +16,6 @@ export default class Navigation extends Component {
             isLoginVisible: false,
             isRegisterVisible: false
         };
-    }
-
-    async componentDidMount() {
-        const verifyRes = await verifyUser();
-
-        if (verifyRes.data && verifyRes.data.success) {
-            this.props.setLogin(true);
-        }
     }
 
     showRegister = () => {

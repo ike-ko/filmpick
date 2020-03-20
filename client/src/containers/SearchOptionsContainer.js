@@ -4,9 +4,7 @@ import SearchOptions from '../components/SearchOptions'
 
 const mapStateToProps = (state, ownProps) => ({
     searchForOption: state.searchOptions.searchFor,
-    sortByOption: state.searchOptions.sortBy,
-    isVisible: ownProps.isVisible,
-    hideSearchOptions: ownProps.hideSearchOptions
+    sortByOption: state.searchOptions.sortBy
 })
 
 const mapDispatchToProps = dispatch => ({

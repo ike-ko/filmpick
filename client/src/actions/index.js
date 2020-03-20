@@ -3,9 +3,9 @@ export const setLogin = status => ({
     status
 })
 
-export const setFavorite = id => ({
-    type: 'SET_FAVORITE',
-    id
+export const setFavorites = items => ({
+    type: 'SET_FAVORITES',
+    items
 })
 
 export const setSearchForOption = option => ({
