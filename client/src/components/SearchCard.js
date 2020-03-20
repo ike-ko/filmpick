@@ -4,15 +4,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import FavoriteButtonContainer from '../containers/FavoriteButtonContainer';
 
-import testGenreIds from '../testGenreIds.json'; // delete when done
+// import testGenreIds from '../testGenreIds.json'; // delete when done
 
 export default class SearchCard extends Component {
     render() {
-        const {
-            poster_path,
-            genre_ids
-        } = this.props.details;
-        let { overview } = this.props.details;
+        const { genres, details } = this.props;
+        const { poster_path, genre_ids } = details;
+        let { overview } = details;
 
         const title = this.props.details.title || this.props.details.name;
         const releaseDate = this.props.details.release_date || this.props.details.first_air_date;
@@ -26,7 +24,7 @@ export default class SearchCard extends Component {
 
         let matchedGenres = "";
         genre_ids.forEach(gid => {
-            testGenreIds.genres.forEach(genre => {
+            genres.forEach(genre => {
                 if (genre.id === gid) {
                     if (!matchedGenres) {
                         matchedGenres = genre.name;

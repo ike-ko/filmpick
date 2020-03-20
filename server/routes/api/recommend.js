@@ -34,7 +34,7 @@ module.exports = app => {
                 }
             ).then(res => res.data);
 
-            let resArr = tdMovieRes.Similar.Results.concat(tdTVRes.Similar.Results);
+            let resArr = [...tdMovieRes.Similar.Results, ...tdTVRes.Similar.Results];
             resArr.sort((a, b) => (a.Name > b.Name) ? 1 : -1);
 
             return res.send({

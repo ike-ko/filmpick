@@ -8,6 +8,11 @@ export const setFavorites = items => ({
     items
 })
 
+export const setGenres = genres => ({
+    type: 'SET_GENRES',
+    genres
+})
+
 export const setSearchForOption = option => ({
     type: 'SET_SEARCH_FOR_OPTION',
     option

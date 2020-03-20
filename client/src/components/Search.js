@@ -2,13 +2,10 @@ import React, { Component } from 'react';
 import { FormControl, Button, Container, InputGroup, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import SearchCard from './SearchCard';
+import SearchCardContainer from '../containers/SearchCardContainer';
 import SearchOptionsContainer from '../containers/SearchOptionsContainer';
 import { searchTMDB } from '../api/search';
 import { isSearchQueryValid } from '../utils/validations';
-
-// import testMovieResults from '../testMovieResults.json';    // remove once unneeded
-// import testGenreIds from '../testGenreIds.json';
 
 export default class Search extends Component {
     constructor() {
@@ -67,7 +64,7 @@ export default class Search extends Component {
 
         data.results.forEach(item => {
             displayCards.push(
-                <SearchCard 
+                <SearchCardContainer 
                     key={item.id}
                     details={item}
                 />

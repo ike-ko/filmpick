@@ -3,7 +3,6 @@ import { Container, Row } from 'react-bootstrap';
 
 import SearchCard from './SearchCard';
 
-// import testMovieResults from '../testMovieResults.json';    // remove once unneeded
 // import testGenreIds from '../testGenreIds.json';
 
 export default class Favorites extends Component {
