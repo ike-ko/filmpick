@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row } from 'react-bootstrap';
 
 import RecommendationCard from '../components/RecommendationCard';
+
 import testRecommendations from '../testRecommendations.json';
 
 export default class Recommendations extends Component {
