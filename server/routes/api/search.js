@@ -23,7 +23,11 @@ module.exports = app => {
             let resArr = tmdbRes.data.results;  // sort in place
 
             if (sort_by === 'alphabetical') {
-                resArr.sort((a, b) => (a.title > b.title) ? 1 : -1)
+                if (search_for === 'tv')
+                    resArr.sort((a, b) => (a.name > b.name) ? 1 : -1)
+                else
+                    resArr.sort((a, b) => (a.title > b.title) ? 1 : -1)
+                
             }
             else if (sort_by === 'release_date') {
                 if (search_for === 'tv')

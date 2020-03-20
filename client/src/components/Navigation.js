@@ -7,6 +7,7 @@ import { Navbar, Nav } from 'react-bootstrap';
 import RegisterContainer from '../containers/RegisterContainer';
 import LoginContainer from '../containers/LoginContainer';
 import { logoutUser, verifyUser } from '../api/user';
+import { FILMPICK_STORAGE, getFromStorage } from '../utils/storage'
 
 export default class Navigation extends Component {
     constructor() {
@@ -19,10 +20,12 @@ export default class Navigation extends Component {
     }
 
     async componentDidMount() {
-        const verifyRes = await verifyUser();
+        if (getFromStorage(FILMPICK_STORAGE)) {
+            const verifyRes = await verifyUser();
 
-        if (verifyRes.data && verifyRes.data.success) {
-            this.props.setLogin(true);
+            if (verifyRes.data && verifyRes.data.success) {
+                this.props.setLogin(true);
+            }
         }
     }
 

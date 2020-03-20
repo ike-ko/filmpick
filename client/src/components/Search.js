@@ -8,7 +8,7 @@ import { searchTMDB } from '../api/search';
 import { isSearchQueryValid } from '../utils/validations';
 
 // import testMovieResults from '../testMovieResults.json';    // remove once unneeded
-import testGenreIds from '../testGenreIds.json';
+// import testGenreIds from '../testGenreIds.json';
 
 export default class Search extends Component {
     constructor() {
@@ -38,6 +38,12 @@ export default class Search extends Component {
             searchQuery: e.target.value
         })
     }
+
+    handleSearchQueryKeyPress = (e) => {
+        if (e.key === "Enter") {
+            this.submitSearch();
+        }
+    }
     
     submitSearch = async () => {
         const { searchQuery } = this.state;
@@ -46,47 +52,24 @@ export default class Search extends Component {
 
         if (validationSearch.success) {
             const searchResults = await searchTMDB(
-                searchQuery,
+                encodeURIComponent(searchQuery),
                 searchForOption === 'MOVIES' ? 'movie' : 'tv',
                 sortByOption.toLowerCase()
             );
             this.setState({
-                searchData: searchResults.data.results
+                searchData: this.generateSearchResults(searchResults.data.results)
             });
         }
     }
 
     generateSearchResults = (data) => {
         let displayCards = [];
-        console.log(data)
+
         data.results.forEach(item => {
-            let overview = item.overview;
-            if (overview.length > 200)
-                overview = overview.substring(0, 200) + "..";
-
-            let matchedGenres = "";
-            item.genre_ids.forEach(id => {
-                testGenreIds.genres.forEach(genre => {
-                    if (genre.id === id) {
-                        if (!matchedGenres) {
-                            matchedGenres = genre.name;
-                        }
-                        else {
-                            matchedGenres += ", " + genre.name;
-                        }
-                    }
-                })
-            });
-
             displayCards.push(
                 <SearchCard 
                     key={item.id}
-                    id={item.id}
-                    posterPath={item.poster_path}
-                    title={item.title}
-                    releaseDate={item.release_date}
-                    matchedGenres={matchedGenres}
-                    overview={overview}
+                    details={item}
                 />
             );
         })
@@ -113,13 +96,14 @@ export default class Search extends Component {
                         className="rounded mr-2"
                         value={this.state.searchQuery}
                         onChange={this.handleSearchQueryChange}
+                        onKeyPress={this.handleSearchQueryKeyPress}
                     />
                     <Button size="lg" variant="outline-primary" onClick={this.submitSearch}>
                         <FontAwesomeIcon icon="search" size="lg"/>
                     </Button>
                 </InputGroup>
 
-                {this.state.searchData && this.generateSearchResults(this.state.searchData)}
+                {this.state.searchData}
             </Container>
         )
     }
