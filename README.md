@@ -1,4 +1,4 @@
-# [Filmpick.me](filmpick.me)
+# [Filmpick.me](http://www.filmpick.me)
 #### Recommendations based on your favorite movies and TV shows!
 
 Filmpick is a web app that utilizes [TheMovieDB](https://www.themoviedb.org/) and [Tastedive](https://tastedive.com/) APIs to allow for searching movies/TV shows and generating recommendations based off of them. It was created primarily for learning purposes and the technology stack used includes:
