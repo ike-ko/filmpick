@@ -4,10 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import FavoriteButtonContainer from '../containers/FavoriteButtonContainer';
 
-import testGenreIds from '../testGenreIds.json'; // delete when done
-
 export default class SearchCard extends Component {
     render() {
+        const { genres } = this.props;
         const {
             poster_path,
             genre_ids
@@ -25,18 +24,20 @@ export default class SearchCard extends Component {
             overview = overview.substring(0, 200) + "..";
 
         let matchedGenres = "";
-        genre_ids.forEach(gid => {
-            testGenreIds.genres.forEach(genre => {
-                if (genre.id === gid) {
-                    if (!matchedGenres) {
-                        matchedGenres = genre.name;
+        if (genres) {
+            genre_ids.forEach(gid => {
+                genres.forEach(genre => {
+                    if (genre.id === gid) {
+                        if (!matchedGenres) {
+                            matchedGenres = genre.name;
+                        }
+                        else {
+                            matchedGenres += ", " + genre.name;
+                        }
                     }
-                    else {
-                        matchedGenres += ", " + genre.name;
-                    }
-                }
-            })
-        });
+                })
+            });
+        }
 
         return (
             <Col 

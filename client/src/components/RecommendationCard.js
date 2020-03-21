@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { Col, Media } from 'react-bootstrap';
-import YouTube from 'react-youtube';
+// import YouTube from 'react-youtube';
 
 export default class RecommendationCard extends Component {
 
     render() {
-        const opts = {
-            height: '180',
-            width: '320',
-            origin: window.location.origin,
-            enablejsapi: 1,
-            widget_referrer: window.location.origin
-        }
+        // const opts = {
+        //     height: '180',
+        //     width: '320',
+        //     origin: window.location.origin,
+        //     enablejsapi: 1,
+        //     widget_referrer: window.location.origin
+        // }
 
         return (
             <Col 
@@ -26,12 +26,12 @@ export default class RecommendationCard extends Component {
                         <h5>{this.props.title}</h5>
                         <p>{this.props.overview}</p>
                     </Media.Body>
-                    <div className="my-auto">
+                    {/* <div className="my-auto">
                         <YouTube
                             videoId={this.props.videoId}
                             opts={opts}
                         />
-                    </div>
+                    </div> */}
                 </Media>
             </Col>
         )

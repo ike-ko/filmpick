@@ -15,6 +15,7 @@ import Login from './components/Login';
 
 import { verifyUser } from './api/user';
 import { getFavorites } from './api/favorites';
+import { getGenres } from './api/search';
 import { FILMPICK_STORAGE, getFromStorage } from './utils/storage';
 
 // Add FontAwesome icons to library here
@@ -40,6 +41,12 @@ class App extends Component {
                 if (favRes.data && favRes.data.favorites)
                     this.props.setFavorites(favRes.data.favorites);
             }
+        }
+
+        const genresRes = await getGenres();
+
+        if (genresRes.data && genresRes.data.success) {
+            this.props.setGenres(genresRes.data.results);
         }
     }
 

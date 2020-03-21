@@ -49,5 +49,41 @@ module.exports = app => {
                 message: 'Error: Server error'
             })
         }
-    })
+    });
+
+    app.get('/api/search/genres', async (req, res) => {
+        try {
+            const movieRes = await axios.get(
+                '/genre/movie/list', {
+                    baseURL: THEMOVIEDB_API_URL,
+                    params: {
+                        api_key: API_KEYS.THEMOVIEDB_API_KEY
+                    }
+                }
+            ).then(res => res.data);
+
+            const tvRes = await axios.get(
+                '/genre/tv/list', {
+                    baseURL: THEMOVIEDB_API_URL,
+                    params: {
+                        api_key: API_KEYS.THEMOVIEDB_API_KEY
+                    }
+                }
+            ).then(res => res.data);
+
+            let resArr = [...movieRes.genres, ...tvRes.genres];  
+            return res.send({
+                success: true,
+                message: 'Search successful',
+                results: resArr
+            });
+        }
+        catch (err) {
+            console.error(err);
+            return res.send({
+                success: false,
+                message: 'Error: Server error'
+            })
+        }
+    });
 };

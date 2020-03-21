@@ -2,13 +2,44 @@ import React, { Component } from 'react';
 import { Container, Row } from 'react-bootstrap';
 
 import RecommendationCard from '../components/RecommendationCard';
-import testRecommendations from '../testRecommendations.json';
+import { getRecommendations } from '../api/recommend';
 
 export default class Recommendations extends Component {
-    generateRecommendations = (data) => {
+    constructor() {
+        super();
+
+        this.state = {
+            recResults: []
+        }
+    }
+
+    async componentDidMount() {
+        const { favorites } = this.props;
+
+        if (favorites && favorites.length) {
+            let query = '';
+    
+            favorites.forEach((item, index) => {
+                query += item.title;
+                if (index !== favorites.length - 1)
+                    query += ',';
+            });
+    
+            const recRes = await getRecommendations(query);
+
+            if (recRes.data && recRes.data.success) {
+                this.setState({
+                    recResults: recRes.data.results
+                });
+            }
+        }
+    }
+
+    generateRecommendations = () => {
+        const { recResults } = this.state;
         let displayCards = [];
 
-        data.Similar.Results.forEach(item => {
+        recResults.forEach(item => {
             displayCards.push(
                 <RecommendationCard
                     key={item.yId}
@@ -25,9 +56,9 @@ export default class Recommendations extends Component {
     render() {
         return (
             <Container fluid className="main text-center">
-                {this.props.favoriteIds && this.props.favoriteIds.length 
+                {this.props.favorites && this.props.favorites.length && this.state.recResults && this.state.recResults.length
                     ?
-                    this.generateRecommendations(testRecommendations)
+                    this.generateRecommendations()
                     :
                     <>
                         <h3>No recommendations to be made!</h3>
