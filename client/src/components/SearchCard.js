@@ -4,13 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import FavoriteButtonContainer from '../containers/FavoriteButtonContainer';
 
-// import testGenreIds from '../testGenreIds.json'; // delete when done
-
 export default class SearchCard extends Component {
     render() {
-        const { genres, details } = this.props;
-        const { poster_path, genre_ids } = details;
-        let { overview } = details;
+        const { genres } = this.props;
+        const {
+            poster_path,
+            genre_ids
+        } = this.props.details;
+        let { overview } = this.props.details;
 
         const title = this.props.details.title || this.props.details.name;
         const releaseDate = this.props.details.release_date || this.props.details.first_air_date;
@@ -23,18 +24,20 @@ export default class SearchCard extends Component {
             overview = overview.substring(0, 200) + "..";
 
         let matchedGenres = "";
-        genre_ids.forEach(gid => {
-            genres.forEach(genre => {
-                if (genre.id === gid) {
-                    if (!matchedGenres) {
-                        matchedGenres = genre.name;
+        if (genres) {
+            genre_ids.forEach(gid => {
+                genres.forEach(genre => {
+                    if (genre.id === gid) {
+                        if (!matchedGenres) {
+                            matchedGenres = genre.name;
+                        }
+                        else {
+                            matchedGenres += ", " + genre.name;
+                        }
                     }
-                    else {
-                        matchedGenres += ", " + genre.name;
-                    }
-                }
-            })
-        });
+                })
+            });
+        }
 
         return (
             <Col 

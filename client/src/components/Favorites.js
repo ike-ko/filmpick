@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row } from 'react-bootstrap';
 
-import SearchCard from './SearchCard';
+import SearchCardContainer from '../containers/SearchCardContainer';
 
 // import testGenreIds from '../testGenreIds.json';
 
@@ -12,7 +12,7 @@ export default class Favorites extends Component {
 
         favorites.forEach(item => {
             displayCards.push(
-                <SearchCard
+                <SearchCardContainer
                     key={item.id}
                     details={item}
                 />

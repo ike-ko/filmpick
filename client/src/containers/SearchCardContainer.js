@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import SearchCard from '../components/SearchCard'
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
     genres: state.mediaInfo.genres
 })
 
