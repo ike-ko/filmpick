@@ -71,7 +71,15 @@ module.exports = app => {
                 }
             ).then(res => res.data);
 
-            let resArr = [...movieRes.genres, ...tvRes.genres];  
+            let resArr = [...movieRes.genres];
+            
+            tvRes.genres.forEach(tvGenre => {
+                if (!resArr.some(genre => genre.id === tvGenre.id)) {
+                    resArr.push(tvGenre);
+                }
+            });
+            
+
             return res.send({
                 success: true,
                 message: 'Search successful',

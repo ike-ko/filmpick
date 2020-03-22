@@ -1,0 +1,45 @@
+@import url(https://fonts.googleapis.com/css?family=Lobster:200,300,400,700);
+
+.main {
+    /* padding: 5px; */
+    padding-top: 71px;
+}
+
+.navbar-brand-filmpick {
+    font-family: 'Lobster', sans-serif;
+    font-size: 1.75rem;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.vh-100 {
+    min-height: 100vh;
+}
+
+.btn-primary:focus, .btn-primary.focus {
+    background-color: #983351;
+    border-color: #983351;
+}
+
+.btn-secondary {
+    color: #fff;
+}
+  
+.btn-secondary:hover {
+    color: #212529;
+}
+
+.btn-secondary:focus, .btn-secondary.focus {
+    background-color: #D78FA5;
+    border-color: #D78FA5;
+}
+
+.btn-info:focus, .btn-info.focus { 
+    background-color: #F1B7A0;
+    border-color: #F1B7A0;
+}
+
+.btn-success:focus, .btn-success.focus {
+    background-color: #DC3545;
+    border-color: #DC3545;
+}

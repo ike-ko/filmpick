@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { FormControl, Button, Container, InputGroup, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import NavigationContainer from '../containers/NavigationContainer';
 import SearchCardContainer from '../containers/SearchCardContainer';
 import SearchOptionsContainer from '../containers/SearchOptionsContainer';
 import { searchTMDB } from '../api/search';
@@ -49,7 +50,7 @@ export default class Search extends Component {
 
         if (validationSearch.success) {
             const searchResults = await searchTMDB(
-                encodeURIComponent(searchQuery),
+                searchQuery,
                 searchForOption === 'MOVIES' ? 'movie' : 'tv',
                 sortByOption.toLowerCase()
             );
@@ -76,32 +77,35 @@ export default class Search extends Component {
 
     render() {
         return (
-            <Container fluid className="main">
-                <SearchOptionsContainer 
-                    isVisible={this.state.isOptionVisible}
-                    hideSearchOptions={this.hideSearchOptions}
-                />
-
-                <InputGroup size="lg">
-                    <Button size="lg" variant="outline-primary" className="mr-2" onClick={this.showSearchOptions}>
-                        <FontAwesomeIcon icon="sliders-h" size="lg"/>
-                    </Button>
-                    <FormControl 
-                        size="lg"
-                        type="text"
-                        placeholder="Search"
-                        className="rounded mr-2"
-                        value={this.state.searchQuery}
-                        onChange={this.handleSearchQueryChange}
-                        onKeyPress={this.handleSearchQueryKeyPress}
+            <>
+                <NavigationContainer />
+                <Container fluid className="main">
+                    <SearchOptionsContainer 
+                        isVisible={this.state.isOptionVisible}
+                        hideSearchOptions={this.hideSearchOptions}
                     />
-                    <Button size="lg" variant="outline-primary" onClick={this.submitSearch}>
-                        <FontAwesomeIcon icon="search" size="lg"/>
-                    </Button>
-                </InputGroup>
 
-                {this.state.searchData}
-            </Container>
+                    <InputGroup size="lg">
+                        <Button size="lg" variant="secondary" className="mr-2" onClick={this.showSearchOptions}>
+                            <FontAwesomeIcon icon="sliders-h" size="lg"/>
+                        </Button>
+                        <FormControl 
+                            size="lg"
+                            type="text"
+                            placeholder="Search"
+                            className="rounded mr-2"
+                            value={this.state.searchQuery}
+                            onChange={this.handleSearchQueryChange}
+                            onKeyPress={this.handleSearchQueryKeyPress}
+                        />
+                        <Button size="lg" variant="secondary" onClick={this.submitSearch}>
+                            <FontAwesomeIcon icon="search" size="lg"/>
+                        </Button>
+                    </InputGroup>
+
+                    {this.state.searchData}
+                </Container>
+            </>
         )
     }
 }

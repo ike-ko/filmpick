@@ -97,11 +97,11 @@ export default class Login extends Component {
                             {this.state.loginError && <Form.Label className="text-danger">{this.state.loginError}</Form.Label>}
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="primary" onClick={this.handleLogin}>
-                            Login
-                        </Button>
-                        <Button variant="secondary" onClick={this.handleCloseModal}>
+                        <Button variant="outline-secondary" onClick={this.handleCloseModal}>
                             Close
+                        </Button>
+                        <Button variant="secondary" onClick={this.handleLogin}>
+                            Log In
                         </Button>
                     </Modal.Footer>
                 </Form>

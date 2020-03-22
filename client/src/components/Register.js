@@ -107,11 +107,11 @@ export default class Register extends Component {
                             {this.state.registerError && <Form.Label className="text-danger">{this.state.registerError}</Form.Label>}
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="primary" onClick={this.handleRegister}>
-                            Register
-                        </Button>
-                        <Button variant="secondary" onClick={this.handleCloseModal}>
+                        <Button variant="outline-secondary" onClick={this.handleCloseModal}>
                             Close
+                        </Button>
+                        <Button variant="secondary" onClick={this.handleRegister}>
+                            Register
                         </Button>
                     </Modal.Footer>
                 </Form>

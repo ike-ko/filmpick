@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Navbar, Nav } from 'react-bootstrap';
 
 import RegisterContainer from '../containers/RegisterContainer';
@@ -48,23 +47,25 @@ export default class Navigation extends Component {
     }
 
     render() {
+        const { isHome } = this.props;
+
         return (
             <Navbar
                 collapseOnSelect
-                bg="light"
-                variant="light"
-                expand="lg"
+                bg="primary"
+                variant="dark"
+                expand={ isHome ? "xs" : "lg"}
                 fixed="top"
+                className='d-flex'
             >
-                <Navbar.Brand as={Link} to="/">
-                    <FontAwesomeIcon icon="film" size="lg" />
-                    {' '}
-                    FilmPick
-                </Navbar.Brand>
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                {<Navbar.Toggle aria-controls="responsive-navbar-nav" />}
+                {!isHome && <Navbar.Brand as={Link} to="/" className={'navbar-brand-filmpick mx-auto'}>
+                    Filmpick
+                </Navbar.Brand>}
+                <Navbar.Brand className='d-block d-sm-none ml-4' />
                 <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="mr-auto">
-                        <Nav.Link eventKey="1" as={Link} to="/">Search</Nav.Link>  {/* Need eventKey to make collapseOnSelect work */}
+                    <Nav className="mx-auto">
+                        <Nav.Link eventKey="1" as={Link} to="/search">Search</Nav.Link>  {/* Need eventKey to make collapseOnSelect work */}
                         { this.props.isLoggedIn 
                             ?
                             <>
