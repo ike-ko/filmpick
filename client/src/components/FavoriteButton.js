@@ -24,7 +24,7 @@ export default class FavoriteButton extends Component {
         return (
             this.props.isLoggedIn ?
                 <Button 
-                    variant={this.isInFavorites() ? "danger" : "secondary"}
+                    variant={this.isInFavorites() ? "success" : "info"}
                     className="mt-auto"
                     onClick={this.handleSetFavorite}
                 >
@@ -37,7 +37,7 @@ export default class FavoriteButton extends Component {
                             disabled
                             className="w-100"
                             style={{ pointerEvents: 'none' }}
-                            variant="secondary"
+                            variant="light"
                         >
                             <FontAwesomeIcon icon="heart" />
                         </Button>

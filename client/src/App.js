@@ -5,13 +5,14 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faFilm, faSlidersH, faSearch, faQuestion, faHeart } from '@fortawesome/free-solid-svg-icons'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './theme.css';
+import './custom.css';
 
-import NavigationContainer from './containers/NavigationContainer';
 import FavoritesContainer from './containers/FavoritesContainer';
 import RecommendationsContainer from './containers/RecommendationsContainer';
 import SearchContainer from './containers/SearchContainer';
 
-import Login from './components/Login';
+// import Home from './components/Home';
 
 import { verifyUser } from './api/user';
 import { getFavorites } from './api/favorites';
@@ -53,12 +54,10 @@ class App extends Component {
     render() {
         return (
             <Router>
-                <NavigationContainer />
-
-                <Route path="/" exact component={SearchContainer} />
+                <Route path="/" exact component={SearchContainer} /> 
+                <Route path="/search" component={SearchContainer} />
                 <Route path="/favorites" component={FavoritesContainer} />
                 <Route path="/recommendations" component={RecommendationsContainer} />
-                <Route path="/login" component={Login} />
             </Router>
         );
     }

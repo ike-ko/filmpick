@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row } from 'react-bootstrap';
 
+import NavigationContainer from '../containers/NavigationContainer';
 import RecommendationCard from '../components/RecommendationCard';
 import { getRecommendations } from '../api/recommend';
 
@@ -55,17 +56,20 @@ export default class Recommendations extends Component {
 
     render() {
         return (
-            <Container fluid className="main text-center">
-                {this.props.favorites && this.props.favorites.length && this.state.recResults && this.state.recResults.length
-                    ?
-                    this.generateRecommendations()
-                    :
-                    <>
-                        <h3>No recommendations to be made!</h3>
-                        <h5>Search and favorite movies/TV shows to see recommendations based on them!</h5>
-                    </>
-                }
-            </Container>
+            <>
+                <NavigationContainer />
+                <Container fluid className="main text-center">
+                    {this.props.favorites && this.props.favorites.length && this.state.recResults && this.state.recResults.length
+                        ?
+                        this.generateRecommendations()
+                        :
+                        <>
+                            <h3>No recommendations to be made!</h3>
+                            <h5>Search and favorite movies/TV shows to see recommendations based on them!</h5>
+                        </>
+                    }
+                </Container>
+            </>
         )
     }
 }

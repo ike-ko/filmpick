@@ -6,7 +6,7 @@ export const searchTMDB = async (searchQuery, searchFor, sortBy) => {
         axios.get(
             `/api/search/`, {
                 params: {
-                    search_query: searchQuery,
+                    search_query: encodeURIComponent(searchQuery).replace(/%20/g, "+"),
                     search_for: searchFor,
                     sort_by: sortBy
                 }
