@@ -4,9 +4,9 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faFilm, faSlidersH, faSearch, faQuestion, faHeart } from '@fortawesome/free-solid-svg-icons'
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './theme.css';
-import './custom.css';
+import 'bootstrap/scss/bootstrap.scss';
+import './theme.scss';
+import './custom.scss';
 
 import FavoritesContainer from './containers/FavoritesContainer';
 import RecommendationsContainer from './containers/RecommendationsContainer';
