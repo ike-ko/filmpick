@@ -1,18 +1,19 @@
 /*! `Custom` Bootstrap 4 theme */
 @import url(https://fonts.googleapis.com/css?family=Montserrat:200,300,400,700);
-$font-family-base:Montserrat;
+$font-family-base: Montserrat;
+
 @import url(https://fonts.googleapis.com/css?family=Poppins:200,300,400,700);
-$headings-font-family:Poppins;
+$headings-font-family: Poppins;
 
 $enable-grid-classes:false;
-$primary:#983351;
-$secondary:#D78FA5;
-$success:#DC3545;
-$danger:#59001B;
-$info:#F1B7A0;
-$warning:#631C00;
-$light:#F6F6F6;
-$dark:#190008;
-@import "bootstrap";
 
-// Add SASS theme customizations here..
+$primary:#57BA98;
+$secondary:#65CCB8;
+$success:#F76C6C;
+$danger:#59001B;
+$info:#182628;
+$warning:#631C00;
+$light:#F0F0F0;
+$dark:#190008;
+
+@import "bootstrap";

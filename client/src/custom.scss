@@ -1,3 +1,4 @@
+@import './theme.scss';
 @import url(https://fonts.googleapis.com/css?family=Lobster:200,300,400,700);
 
 .main {
@@ -5,8 +6,23 @@
     padding-top: 71px;
 }
 
-.navbar-brand-filmpick {
+.logo-filmpick {
     font-family: 'Lobster', sans-serif;
+}
+
+.home-logo {
+    font-size: 6rem;
+}
+
+.home-icons {
+    font-size: 2.25rem;
+}
+
+.home-tagline {
+    font-size: 1.15rem;
+}
+
+.navbar-brand-filmpick {
     font-size: 1.75rem;
     padding-top: 0;
     padding-bottom: 0;
@@ -16,11 +32,6 @@
     min-height: 100vh;
 }
 
-// .btn-primary:focus, .btn-primary.focus {
-//     background-color: #983351;
-//     border-color: #983351;
-// }
-
 .btn-secondary {
     color: #fff;
 }
@@ -29,17 +40,7 @@
     color: #212529;
 }
 
-// .btn-secondary:focus, .btn-secondary.focus {
-//     background-color: #D78FA5;
-//     border-color: #D78FA5;
-// }
-
-// .btn-info:focus, .btn-info.focus { 
-//     background-color: #F1B7A0;
-//     border-color: #F1B7A0;
-// }
-
-// .btn-success:focus, .btn-success.focus {
-//     background-color: #DC3545;
-//     border-color: #DC3545;
-// }
+.container-home {
+    background: rgb(59,119,98);
+    background: linear-gradient(45deg, rgba(59,119,98,1) 0%, rgba(87,186,152,1) 65%, rgba(101,204,184,1) 100%);
+}
