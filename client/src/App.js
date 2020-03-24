@@ -2,17 +2,16 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faFilm, faSlidersH, faSearch, faQuestion, faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faFilm, faSlidersH, faSearch, faQuestion, faHeart, faThumbsUp, faStar } from '@fortawesome/free-solid-svg-icons'
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './theme.css';
-import './custom.css';
+import 'bootstrap/scss/bootstrap.scss';
+import './assets/custom.scss';
 
 import FavoritesContainer from './containers/FavoritesContainer';
 import RecommendationsContainer from './containers/RecommendationsContainer';
 import SearchContainer from './containers/SearchContainer';
 
-// import Home from './components/Home';
+import Home from './components/Home';
 
 import { verifyUser } from './api/user';
 import { getFavorites } from './api/favorites';
@@ -25,7 +24,9 @@ library.add(
     faSlidersH,
     faSearch,
     faQuestion,
-    faHeart
+    faHeart,
+    faThumbsUp,
+    faStar
 );
 
 class App extends Component {
@@ -54,7 +55,7 @@ class App extends Component {
     render() {
         return (
             <Router>
-                <Route path="/" exact component={SearchContainer} /> 
+                <Route path="/" exact component={Home} /> 
                 <Route path="/search" component={SearchContainer} />
                 <Route path="/favorites" component={FavoritesContainer} />
                 <Route path="/recommendations" component={RecommendationsContainer} />

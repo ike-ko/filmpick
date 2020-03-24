@@ -1,0 +1,19 @@
+/*! `Custom` Bootstrap 4 theme */
+@import url(https://fonts.googleapis.com/css?family=Montserrat:200,300,400,700);
+$font-family-base: Montserrat;
+
+@import url(https://fonts.googleapis.com/css?family=Poppins:200,300,400,700);
+$headings-font-family: Poppins;
+
+$enable-grid-classes:false;
+
+$primary:#57BA98;
+$secondary:#65CCB8;
+$success:#F76C6C;
+$danger:#59001B;
+$info:#182628;
+$warning:#631C00;
+$light:#F0F0F0;
+$dark:#190008;
+
+@import "bootstrap";

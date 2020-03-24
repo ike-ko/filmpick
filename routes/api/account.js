@@ -102,7 +102,7 @@ module.exports = app => {
             if (users.length != 1) {
                 return res.send({
                     success: false,
-                    message: 'Username/Password incorrect'
+                    message: 'Username or password are incorrect'
                 });
             }
 
@@ -110,7 +110,7 @@ module.exports = app => {
             if (!user.validPassword(password)) {
                 return res.send({
                     success: false,
-                    message: 'Username/Password incorrect'
+                    message: 'Username or password are incorrect'
                 });
             }
             

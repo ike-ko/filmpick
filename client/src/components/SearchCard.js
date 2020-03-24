@@ -11,7 +11,7 @@ export default class SearchCard extends Component {
             poster_path,
             genre_ids
         } = this.props.details;
-        let { overview } = this.props.details;
+        // let { overview } = this.props.details;
 
         const title = this.props.details.title || this.props.details.name;
         const releaseDate = this.props.details.release_date || this.props.details.first_air_date;
@@ -20,8 +20,8 @@ export default class SearchCard extends Component {
             ? `${title} (${releaseDate.substring(0, 4)})`
             : title;
 
-        if (overview.length > 200)
-            overview = overview.substring(0, 200) + "..";
+        // if (overview.length > 200)
+        //     overview = overview.substring(0, 200) + "..";
 
         let matchedGenres = "";
         if (genres) {
@@ -45,9 +45,9 @@ export default class SearchCard extends Component {
                 md={6}
                 lg={4}
                 xl={3}
-                className="mb-3 p-3"
+                className="px-3 pb-3"
             >
-                <Media className="h-100 p-3 border border-primary rounded bg-white">
+                <Media className="h-100 p-3 border border-light rounded bg-light">
                     {poster_path 
                         ? <Image height="138px" src={`https://image.tmdb.org/t/p/w92/${poster_path}`} rounded className="mr-3" />
                         : <div className="mr-3 border border-secondary rounded text-center bg-secondary" style={{height:"138px", width:"92px"}}>
@@ -57,7 +57,7 @@ export default class SearchCard extends Component {
                     <Media.Body className="h-100 d-flex flex-column">
                         <h5>{cardHeader}</h5>
                         <h6>{matchedGenres}</h6>
-                        <p>{overview}</p>
+                        {/* <p>{overview}</p> */}
 
                         <FavoriteButtonContainer 
                             details={this.props.details}

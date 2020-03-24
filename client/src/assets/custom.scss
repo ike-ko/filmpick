@@ -1,0 +1,138 @@
+@import './theme.scss';
+@import url(https://fonts.googleapis.com/css?family=Lobster:200,300,400,700);
+
+@include media-breakpoint-up(md) { 
+    .home-searchbar {
+        max-width: 60%;
+    }
+}
+
+.main {
+    padding-top: 71px;
+}
+
+.navbar-gradient {
+    background: rgb(59,119,98);
+    background: linear-gradient(45deg, rgba(59,119,98,1) 0%, rgba(69,140,116,1) 100%);
+
+    background-color: transparent !important;
+}
+
+.logo-filmpick {
+    font-family: 'Lobster', sans-serif;
+}
+
+.navbar-brand-filmpick {
+    font-size: 1.7rem;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.vh-100 {
+    min-height: 100vh;
+}
+
+.btn-secondary {
+    color: #fff;
+}
+  
+.btn-secondary:hover {
+    color: #212529;
+}
+
+.home-container {
+    padding: 0;
+}
+
+.home-elements {
+    position: relative;
+    z-index: 1;
+    padding-top: 56px;
+}
+
+.home-logo {
+    font-size: 6rem;
+}
+
+.home-icons {
+    font-size: 2.25rem;
+}
+
+.home-tagline {
+    font-size: 1.15rem;
+}
+
+.home-searchbar {
+    input {
+        border: 0;
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+    }
+    .input-group-text {
+        background-color: #fff;
+        border: 0;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        padding: 0;
+
+        button {
+            background-color: #fff;
+            border: 0;
+        }
+    }
+}
+
+:root {
+    --base:              #ee7575;
+    --bg-blend:          hard-light;
+    --blur:              2px;
+    --fg-blend:          lighten;
+    --foreground:        #215040;
+    --opacity:           0.83;
+    --spacing:           0px;
+  }
+
+.home-bg-container {
+    height:                 100%;
+    width:                  100%;
+    position:               absolute;
+    overflow:               hidden;
+    top:                    0;
+
+    background-color:    var(--base);
+    display:             flex;
+    flex:                1 1 100%;
+}
+
+.home-bg {
+    background-image:       url('./theater.jpg');
+    background-size:        cover;
+    background-position:    center top;
+    max-width:              100%;
+    width:                  100%;
+    height:                 100%;
+    // filter:                 brightness(50%) blur(4px);
+    transform:              scale(1.05);
+
+    filter:              brightness(75%) grayscale(100%) contrast(1) blur(var(--blur));
+    flex:                1 0 100%;
+    max-width:           100%;
+    mix-blend-mode:      var(--bg-blend);
+    object-fit:          cover;
+    opacity:             var(--opacity);
+    width:               100%;
+}
+
+.home-bg-container::before {
+    background-color:    var(--foreground);
+    bottom:              0;
+    content:             '';
+    height:              100%;
+    left:                0;
+    mix-blend-mode:      var(--fg-blend);
+    position:            absolute;
+    right:               0;
+    top:                 0;
+    width:               100%;
+    z-index:             1;
+  }

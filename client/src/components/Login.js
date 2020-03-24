@@ -32,6 +32,12 @@ export default class Login extends Component {
         });
     }
 
+    handleKeyPress = (e) => {
+        if (e.key === "Enter") {
+            this.handleLogin();
+        }
+    }
+
     handleCloseModal = () => {
         this.setState({
             ...initialState
@@ -83,6 +89,7 @@ export default class Login extends Component {
                                     placeholder="Enter username"
                                     value={this.state.username}
                                     onChange={this.handleUsernameChange}
+                                    onKeyPress={this.handleKeyPress}
                                 />
                             </Form.Group>
                             <Form.Group controlId="formLoginPassword">
@@ -92,6 +99,7 @@ export default class Login extends Component {
                                     placeholder="Enter password" 
                                     value={this.state.password} 
                                     onChange={this.handlePasswordChange}
+                                    onKeyPress={this.handleKeyPress}
                                 />
                             </Form.Group>
                             {this.state.loginError && <Form.Label className="text-danger">{this.state.loginError}</Form.Label>}

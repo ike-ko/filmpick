@@ -19,6 +19,16 @@ export default class Search extends Component {
         };
     }
 
+    componentDidMount() {
+        if (this.props.location && this.props.location.state && this.props.location.state.searchQuery) {
+            this.setState({
+                searchQuery: this.props.location.state.searchQuery
+            }, () => {
+                this.submitSearch();
+            });
+        }
+    }
+
     showSearchOptions = () => {
         this.setState({
             isOptionVisible: true
@@ -85,14 +95,14 @@ export default class Search extends Component {
                         hideSearchOptions={this.hideSearchOptions}
                     />
 
-                    <InputGroup size="lg">
+                    <InputGroup size="lg" className='mb-3'>
                         <Button size="lg" variant="secondary" className="mr-2" onClick={this.showSearchOptions}>
                             <FontAwesomeIcon icon="sliders-h" size="lg"/>
                         </Button>
                         <FormControl 
                             size="lg"
                             type="text"
-                            placeholder="Search"
+                            placeholder="Search..."
                             className="rounded mr-2"
                             value={this.state.searchQuery}
                             onChange={this.handleSearchQueryChange}

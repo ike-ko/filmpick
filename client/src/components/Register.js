@@ -37,6 +37,12 @@ export default class Register extends Component {
             confirmPassword: e.target.value
         });
     }
+    
+    handleKeyPress = (e) => {
+        if (e.key === "Enter") {
+            this.handleRegister();
+        }
+    }
 
     handleCloseModal = () => {
         this.setState({
@@ -84,6 +90,7 @@ export default class Register extends Component {
                                     placeholder="Enter username"
                                     value={this.state.username}
                                     onChange={this.handleUsernameChange}
+                                    onKeyPress={this.handleKeyPress}
                                 />
                             </Form.Group>
                             <Form.Group controlId="formLoginPassword">
@@ -93,6 +100,7 @@ export default class Register extends Component {
                                     placeholder="Enter password" 
                                     value={this.state.password} 
                                     onChange={this.handlePasswordChange}
+                                    onKeyPress={this.handleKeyPress}
                                 />
                             </Form.Group>
                             <Form.Group controlId="formLoginConfirmPassword">
@@ -102,6 +110,7 @@ export default class Register extends Component {
                                     placeholder="Confirm password" 
                                     value={this.state.confirmPassword} 
                                     onChange={this.handleConfirmPasswordChange}
+                                    onKeyPress={this.handleKeyPress}
                                 />
                             </Form.Group>
                             {this.state.registerError && <Form.Label className="text-danger">{this.state.registerError}</Form.Label>}
