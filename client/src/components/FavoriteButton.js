@@ -37,7 +37,7 @@ export default class FavoriteButton extends Component {
                             disabled
                             className="w-100"
                             style={{ pointerEvents: 'none' }}
-                            variant="light"
+                            variant="info"
                         >
                             <FontAwesomeIcon icon="heart" />
                         </Button>

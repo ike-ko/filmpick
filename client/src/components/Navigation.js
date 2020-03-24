@@ -47,19 +47,21 @@ export default class Navigation extends Component {
     }
 
     render() {
+        const { isHome } = this.props;
+
         return (
             <Navbar
                 collapseOnSelect
                 bg="primary"
                 variant="dark"
-                expand="lg"
+                expand={ isHome ? "xs" : "lg"}
                 fixed="top"
-                className='d-flex'
+                className='d-flex navbar-gradient'
             >
                 {<Navbar.Toggle aria-controls="responsive-navbar-nav" />}
-                <Navbar.Brand as={Link} to="/" className={'logo-filmpick navbar-brand-filmpick mx-auto'}>
+                {!isHome && <Navbar.Brand as={Link} to="/" className={'logo-filmpick navbar-brand-filmpick mx-auto'}>
                     Filmpick
-                </Navbar.Brand>
+                </Navbar.Brand>}
                 <Navbar.Brand className='d-block d-sm-none ml-4' />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mx-auto">

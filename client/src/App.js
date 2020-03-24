@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faFilm, faSlidersH, faSearch, faQuestion, faHeart, faThumbsUp } from '@fortawesome/free-solid-svg-icons'
+import { faFilm, faSlidersH, faSearch, faQuestion, faHeart, faThumbsUp, faStar } from '@fortawesome/free-solid-svg-icons'
 
 import 'bootstrap/scss/bootstrap.scss';
-import './custom.scss';
+import './assets/custom.scss';
 
 import FavoritesContainer from './containers/FavoritesContainer';
 import RecommendationsContainer from './containers/RecommendationsContainer';
@@ -25,7 +25,8 @@ library.add(
     faSearch,
     faQuestion,
     faHeart,
-    faThumbsUp
+    faThumbsUp,
+    faStar
 );
 
 class App extends Component {

@@ -45,7 +45,7 @@ export default class SearchCard extends Component {
                 md={6}
                 lg={4}
                 xl={3}
-                className="mb-3 p-3"
+                className="px-3 pb-3"
             >
                 <Media className="h-100 p-3 border border-light rounded bg-light">
                     {poster_path 
