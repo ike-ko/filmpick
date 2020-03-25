@@ -22,3 +22,19 @@ export const getGenres = async () => {
         ).then(res => res.data)
     );
 }
+
+export const getPopularMovies = async () => {
+    return await resolve(
+        axios.get(
+            '/api/search/movie/popular'
+        ).then(res => res.data)
+    );
+}
+
+export const getPopularTV = async () => {
+    return await resolve(
+        axios.get(
+            '/api/search/tv/popular'
+        ).then(res => res.data)
+    );
+}

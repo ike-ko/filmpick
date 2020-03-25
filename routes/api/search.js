@@ -95,7 +95,7 @@ module.exports = app => {
         }
     });
 
-    app.get('/api/search/movies/popular', async (req, res) => {
+    app.get('/api/search/movie/popular', async (req, res) => {
         try {
             const movieRes = await axios.get(
                 '/movie/popular', {

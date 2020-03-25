@@ -73,7 +73,10 @@ export default class Navigation extends Component {
                 <Navbar.Brand className='d-block d-sm-none ml-4' />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mx-auto">
-                        <Nav.Link eventKey="1" as={Link} to="/search">Search</Nav.Link>  {/* Need eventKey to make collapseOnSelect work */}
+                        { this.props.resetSearch 
+                            ? <Nav.Link eventKey="1" onClick={this.props.resetSearch}>Search</Nav.Link>
+                            : <Nav.Link eventKey="1" as={Link} to="/search">Search</Nav.Link>
+                        }
                         { this.props.isLoggedIn 
                             ?
                             <>

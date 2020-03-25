@@ -126,3 +126,24 @@
     transform:              scale(1.05);
 }
 
+.slick-slider .slick-list {
+    padding: 1rem 0;
+}
+
+.slick-track {
+    display: flex;
+
+    .slick-slide {
+        height: auto;
+        display: flex;
+
+        > div {
+            display: flex;
+            width: 100%;
+        }
+    }
+}
+
+.search-card-genres {
+    font-size: 0.85rem;
+}
