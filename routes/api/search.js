@@ -94,4 +94,56 @@ module.exports = app => {
             })
         }
     });
+
+    app.get('/api/search/movies/popular', async (req, res) => {
+        try {
+            const movieRes = await axios.get(
+                '/movie/popular', {
+                    baseURL: THEMOVIEDB_API_URL,
+                    params: {
+                        api_key: API_KEYS.THEMOVIEDB_API_KEY
+                    }
+                }
+            ).then(movieRes => movieRes.data);
+            
+            return res.send({
+                success: true,
+                message: 'Search successful',
+                results: movieRes
+            });
+        }
+        catch (err) {
+            console.error(err);
+            return res.send({
+                success: false,
+                message: 'Server error'
+            })
+        }
+    });
+
+    app.get('/api/search/tv/popular', async (req, res) => {
+        try {
+            const tvRes = await axios.get(
+                '/tv/popular', {
+                    baseURL: THEMOVIEDB_API_URL,
+                    params: {
+                        api_key: API_KEYS.THEMOVIEDB_API_KEY
+                    }
+                }
+            ).then(tvRes => tvRes.data);
+            
+            return res.send({
+                success: true,
+                message: 'Search successful',
+                results: tvRes
+            });
+        }
+        catch (err) {
+            console.error(err);
+            return res.send({
+                success: false,
+                message: 'Server error'
+            })
+        }
+    });
 };

@@ -47,7 +47,7 @@ export default class SearchCard extends Component {
                 xl={3}
                 className="px-3 pb-3"
             >
-                <Media className="h-100 p-3 border border-light rounded bg-light">
+                <Media className="h-100 p-3 border border-light rounded bg-light hvr-glow">
                     {poster_path 
                         ? <Image height="138px" src={`https://image.tmdb.org/t/p/w92/${poster_path}`} rounded className="mr-3" />
                         : <div className="mr-3 border border-secondary rounded text-center bg-secondary" style={{height:"138px", width:"92px"}}>
