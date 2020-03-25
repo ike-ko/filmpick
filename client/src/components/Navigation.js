@@ -13,7 +13,8 @@ export default class Navigation extends Component {
 
         this.state = {
             isLoginVisible: false,
-            isRegisterVisible: false
+            isRegisterVisible: false,
+            redirectUrl: ''
         };
     }
 
@@ -46,6 +47,13 @@ export default class Navigation extends Component {
         this.props.setLogin(false);
     }
 
+    handleLogin = (url = '') => {
+        this.setState({
+            redirectUrl: url
+        });
+        this.showLogin();
+    }
+
     render() {
         const { isHome } = this.props;
 
@@ -65,7 +73,10 @@ export default class Navigation extends Component {
                 <Navbar.Brand className='d-block d-sm-none ml-4' />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mx-auto">
-                        <Nav.Link eventKey="1" as={Link} to="/search">Search</Nav.Link>  {/* Need eventKey to make collapseOnSelect work */}
+                        { this.props.resetSearch 
+                            ? <Nav.Link eventKey="1" onClick={this.props.resetSearch}>Search</Nav.Link>
+                            : <Nav.Link eventKey="1" as={Link} to="/search">Search</Nav.Link>
+                        }
                         { this.props.isLoggedIn 
                             ?
                             <>
@@ -74,8 +85,8 @@ export default class Navigation extends Component {
                             </>
                             :
                             <>
-                                <Nav.Link eventKey="2" onClick={this.showLogin}>Favorites</Nav.Link>
-                                <Nav.Link eventKey="3" onClick={this.showLogin}>Recommendations</Nav.Link>
+                                <Nav.Link eventKey="2" onClick={() => this.handleLogin('/favorites')}>Favorites</Nav.Link>
+                                <Nav.Link eventKey="3" onClick={() => this.handleLogin('/recommendations')}>Recommendations</Nav.Link>
                             </>
                         }
                     </Nav>
@@ -101,7 +112,9 @@ export default class Navigation extends Component {
                 <LoginContainer
                     isVisible={this.state.isLoginVisible}
                     hideLogin={this.hideLogin}
+                    redirectUrl={this.state.redirectUrl}
                 />
+
             </Navbar>
         )
     }

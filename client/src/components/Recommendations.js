@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Container, Row } from 'react-bootstrap';
 
 import NavigationContainer from '../containers/NavigationContainer';
-import RecommendationCard from '../components/RecommendationCard';
+import RecommendationCard from './RecommendationCard';
+import Loading from './Loading';
 import { getRecommendations } from '../api/recommend';
 
 export default class Recommendations extends Component {
@@ -10,12 +11,16 @@ export default class Recommendations extends Component {
         super();
 
         this.state = {
-            recResults: []
+            recResults: [],
+            isLoading: false
         }
     }
 
     async componentDidMount() {
         const { favorites } = this.props;
+        this.setState({
+            isLoading: true
+        });
 
         if (favorites && favorites.length) {
             let query = '';
@@ -34,6 +39,10 @@ export default class Recommendations extends Component {
                 });
             }
         }
+
+        this.setState({
+            isLoading: false
+        });
     }
 
     generateRecommendations = () => {
@@ -59,14 +68,17 @@ export default class Recommendations extends Component {
             <>
                 <NavigationContainer />
                 <Container fluid className="main text-center">
-                    {this.props.favorites && this.props.favorites.length && this.state.recResults && this.state.recResults.length
-                        ?
-                        this.generateRecommendations()
+                    {this.state.isLoading
+                        ? <Loading message='Getting your recommendations!'/>
                         :
-                        <>
-                            <h3>No recommendations to be made!</h3>
-                            <h5>Search and favorite movies/TV shows to see recommendations based on them!</h5>
-                        </>
+                        this.props.favorites && this.props.favorites.length && this.state.recResults && this.state.recResults.length
+                            ?
+                            this.generateRecommendations()
+                            :
+                            <>
+                                <h3>No recommendations to be made!</h3>
+                                <h5>Search and favorite movies/TV shows to see recommendations based on them!</h5>
+                            </>
                     }
                 </Container>
             </>

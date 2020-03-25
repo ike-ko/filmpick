@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { FormControl, Button, Container, InputGroup, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import Loading from './Loading';
+import CardCarousel from './CardCarousel';
 import NavigationContainer from '../containers/NavigationContainer';
 import SearchCardContainer from '../containers/SearchCardContainer';
 import SearchOptionsContainer from '../containers/SearchOptionsContainer';
-import { searchTMDB } from '../api/search';
+import { searchTMDB, getPopularMovies, getPopularTV } from '../api/search';
 import { isSearchQueryValid } from '../utils/validations';
 
 export default class Search extends Component {
@@ -15,7 +17,9 @@ export default class Search extends Component {
         this.state = {
             isOptionVisible: false,
             searchData: null,
-            searchQuery: ""
+            searchQuery: "",
+            isLoading: false,
+            loadingMessage: ''
         };
     }
 
@@ -26,6 +30,9 @@ export default class Search extends Component {
             }, () => {
                 this.submitSearch();
             });
+        }
+        else {
+            this.getPopular();
         }
     }
 
@@ -54,6 +61,11 @@ export default class Search extends Component {
     }
     
     submitSearch = async () => {
+        this.setState({
+            isLoading: true,
+            loadingMessage: 'Searching...'
+        });
+
         const { searchQuery } = this.state;
         const { searchForOption, sortByOption } = this.props;
         const validationSearch = isSearchQueryValid(searchQuery)
@@ -65,12 +77,32 @@ export default class Search extends Component {
                 sortByOption.toLowerCase()
             );
             this.setState({
-                searchData: this.generateSearchResults(searchResults.data.results)
+                searchData: this.generateSearchCards(searchResults.data.results)
             });
         }
+        
+        this.setState({
+            isLoading: false
+        });
     }
 
-    generateSearchResults = (data) => {
+    getPopular = async () => {
+        this.setState({
+            isLoading: true,
+            loadingMessage: 'Getting popular movies/TV shows...'
+        });
+        
+        const popularMovies = await getPopularMovies();
+        const popularTV = await getPopularTV();
+
+        this.setState({
+            isLoading: false,
+            popularMovies: this.generateSearchCards(popularMovies.data.results, true),
+            popularTV: this.generateSearchCards(popularTV.data.results, true)
+        });
+    }
+
+    generateSearchCards = (data, isCarousel = false) => {
         let displayCards = [];
 
         data.results.forEach(item => {
@@ -78,17 +110,26 @@ export default class Search extends Component {
                 <SearchCardContainer 
                     key={item.id}
                     details={item}
+                    isCarousel={isCarousel}
                 />
             );
         })
 
-        return <Row>{displayCards}</Row>;
+        return displayCards;
+    }
+
+    resetSearch = () => {
+        this.setState({
+            searchData: null,
+            searchQuery: ''
+        });
+        this.getPopular();
     }
 
     render() {
         return (
             <>
-                <NavigationContainer />
+                <NavigationContainer resetSearch={this.resetSearch} />
                 <Container fluid className="main">
                     <SearchOptionsContainer 
                         isVisible={this.state.isOptionVisible}
@@ -113,7 +154,17 @@ export default class Search extends Component {
                         </Button>
                     </InputGroup>
 
-                    {this.state.searchData}
+                    {this.state.isLoading 
+                        ? <Loading message={this.state.loadingMessage} /> 
+                        : this.state.searchData
+                            ? <Row>{this.state.searchData}</Row>
+                            : <>
+                                <h5 className='mb-0'>Popular Movies</h5>
+                                <CardCarousel cards={this.state.popularMovies}/>
+                                <h5 className='mb-0'>Popular TV Shows</h5>
+                                <CardCarousel cards={this.state.popularTV}/>
+                              </>
+                    }
                 </Container>
             </>
         )
