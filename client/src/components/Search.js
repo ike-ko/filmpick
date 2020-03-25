@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { FormControl, Button, Container, InputGroup, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import Loading from './Loading';
 import NavigationContainer from '../containers/NavigationContainer';
 import SearchCardContainer from '../containers/SearchCardContainer';
 import SearchOptionsContainer from '../containers/SearchOptionsContainer';
@@ -15,7 +16,8 @@ export default class Search extends Component {
         this.state = {
             isOptionVisible: false,
             searchData: null,
-            searchQuery: ""
+            searchQuery: "",
+            isLoading: false
         };
     }
 
@@ -54,6 +56,10 @@ export default class Search extends Component {
     }
     
     submitSearch = async () => {
+        this.setState({
+            isLoading: true
+        });
+
         const { searchQuery } = this.state;
         const { searchForOption, sortByOption } = this.props;
         const validationSearch = isSearchQueryValid(searchQuery)
@@ -68,6 +74,10 @@ export default class Search extends Component {
                 searchData: this.generateSearchResults(searchResults.data.results)
             });
         }
+        
+        this.setState({
+            isLoading: false
+        });
     }
 
     generateSearchResults = (data) => {
@@ -113,7 +123,9 @@ export default class Search extends Component {
                         </Button>
                     </InputGroup>
 
-                    {this.state.searchData}
+                    {this.state.isLoading 
+                        ? <Loading message='Searching...' /> 
+                        : this.state.searchData}
                 </Container>
             </>
         )

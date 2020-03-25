@@ -45,7 +45,7 @@ export default class Home extends Component {
                     </div>
 
                     <div className="home-elements">
-                        <h1 className="logo-filmpick home-logo text-white pt-5 pb-3">Filmpick</h1>
+                        <h1 className="logo-filmpick home-logo text-white pt-4 pb-3">Filmpick</h1>
                             
                         <div className="text-light mb-5">
                             <p className='home-stars'>

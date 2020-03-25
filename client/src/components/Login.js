@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom'
 
+import Loading from './Loading';
 import { loginUser } from '../api/user';
 import { getFavorites } from '../api/favorites'
 import { isLoginValid } from '../utils/validations';
@@ -8,10 +10,11 @@ import { isLoginValid } from '../utils/validations';
 const initialState = {
     username: "",
     password: "",
-    loginError: ""
+    loginError: "",
+    isLoading: false
 }
 
-export default class Login extends Component {
+export default withRouter(class Login extends Component {
     constructor() {
         super();
 
@@ -46,6 +49,9 @@ export default class Login extends Component {
     }
 
     handleLogin = async () => {
+        this.setState({
+            isLoading: true
+        });
         let { username, password } = this.state;
         const validationLogin = isLoginValid(username, password);
 
@@ -58,7 +64,8 @@ export default class Login extends Component {
                 const favRes = await getFavorites();
                 if (favRes.data && favRes.data.favorites)
                     this.props.setFavorites(favRes.data.favorites);
-
+                if (this.props.redirectUrl)
+                    this.props.history.push(this.props.redirectUrl);
                 this.handleCloseModal();
             }
             else {
@@ -72,6 +79,10 @@ export default class Login extends Component {
                 loginError: validationLogin.message
             })
         }
+        
+        this.setState({
+            isLoading: false
+        });
     }
 
     render() {
@@ -102,6 +113,7 @@ export default class Login extends Component {
                                     onKeyPress={this.handleKeyPress}
                                 />
                             </Form.Group>
+                            {this.state.isLoading && <Loading message='Logging in...' small /> }
                             {this.state.loginError && <Form.Label className="text-danger">{this.state.loginError}</Form.Label>}
                     </Modal.Body>
                     <Modal.Footer>
@@ -116,4 +128,4 @@ export default class Login extends Component {
             </Modal>
         )
     }
-}
+})
