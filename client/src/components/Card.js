@@ -79,7 +79,7 @@ export default class Card extends Component {
             >
                 <Media 
                     className="card-media h-100 p-3 border border-light rounded bg-light hvr-glow"
-                    // onClick={this.handleOpenModal}
+                    onClick={this.handleOpenModal}
                 >
                     {poster_path 
                         ? <Image src={`https://image.tmdb.org/t/p/w${imgWidth}/${poster_path}`} rounded className="mr-3" />
@@ -91,7 +91,6 @@ export default class Card extends Component {
                         <h6><strong>{title}</strong></h6>
                         {releaseDate && <h6>{releaseDate.substring(0, 4)}</h6>}
                         <h6 className='search-card-genres'>{matchedGenres}</h6>
-                        {/* <p>{overview}</p> */}
 
                         <FavoriteButtonContainer 
                             details={this.props.details}
