@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row } from 'react-bootstrap';
 
 import NavigationContainer from '../containers/NavigationContainer';
-import RecommendationCard from './RecommendationCard';
+import CardContainer from '../containers/CardContainer';
 import Loading from './Loading';
 import { getRecommendations } from '../api/recommend';
 
@@ -26,7 +26,14 @@ export default class Recommendations extends Component {
             let query = '';
     
             favorites.forEach((item, index) => {
-                query += item.title;
+                if (item.title) {   // is movie
+                    query += 'movie:'
+                    query += item.title;
+                }
+                else {              // is show (probably)
+                    query += 'show:'
+                    query += item.name;
+                }
                 if (index !== favorites.length - 1)
                     query += ',';
             });
@@ -51,11 +58,9 @@ export default class Recommendations extends Component {
 
         recResults.forEach(item => {
             displayCards.push(
-                <RecommendationCard
-                    key={item.yId}
-                    title={item.Name}
-                    overview={item.wTeaser}
-                    videoId={item.yId}
+                <CardContainer
+                    key={item.id}
+                    details={item}
                 />
             );
         })
@@ -67,16 +72,17 @@ export default class Recommendations extends Component {
         return (
             <>
                 <NavigationContainer />
-                <Container fluid className="main text-center">
+                <Container fluid className="main">
                     {this.state.isLoading
                         ? <Loading message='Getting your recommendations!'/>
                         :
                         this.props.favorites && this.props.favorites.length && this.state.recResults && this.state.recResults.length
                             ?
-                            this.generateRecommendations()
+                            <><h5 className='pt-2'>Recommendations</h5>
+                            {this.generateRecommendations()}</>
                             :
                             <>
-                                <h3>No recommendations to be made!</h3>
+                                <h3 className='pt-2'>No recommendations to be made!</h3>
                                 <h5>Search and favorite movies/TV shows to see recommendations based on them!</h5>
                             </>
                     }

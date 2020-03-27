@@ -1,7 +1,6 @@
 const axios =  require('axios');
 const API_KEYS = require('../../utils/apiKeys')
-
-const THEMOVIEDB_API_URL = "https://api.themoviedb.org/3";
+const { THEMOVIEDB_API_URL } = require('../../utils/apiUrls');
 
 module.exports = app => {
     app.get('/api/search', async (req, res) => {

@@ -21,7 +21,7 @@
 }
 
 .main {
-    padding-top: 71px;
+    padding-top: 56px;
 }
 
 .navbar-gradient {
@@ -144,6 +144,17 @@
     }
 }
 
+.slick-next::before {
+    color: $light;
+}
+.slick-prev::before {
+    color: $light;
+}
+
 .search-card-genres {
     font-size: 0.85rem;
+}
+
+.card-media {
+    cursor: pointer;
 }

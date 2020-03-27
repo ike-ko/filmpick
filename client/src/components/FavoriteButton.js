@@ -11,6 +11,8 @@ export default class FavoriteButton extends Component {
     }
 
     handleSetFavorite = async (e) => {
+        e.stopPropagation();    // prevent opening details modal when favoriting
+
         const favRes = this.isInFavorites() 
             ? await removeFavorite(this.props.details.id)
             : await addFavorite(this.props.details);
