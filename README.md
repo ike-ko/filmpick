@@ -11,4 +11,4 @@ Filmpick is a web app that utilizes [TheMovieDB](https://www.themoviedb.org/) an
 | Database | MongoDB
 | Deployment platform | Heroku
 
-Other notable technologies that were utilized: Redux, Axios, Bootstrap, Sass, Mongoose
+Other notable technologies involved: Redux, Axios, Bootstrap, Sass, Mongoose
