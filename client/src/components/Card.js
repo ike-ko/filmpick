@@ -2,9 +2,30 @@ import React, { Component } from 'react';
 import { Col, Media, Image } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import DetailModal from './DetailModal';
 import FavoriteButtonContainer from '../containers/FavoriteButtonContainer';
 
-export default class SearchCard extends Component {
+export default class Card extends Component {
+    constructor() {
+        super();
+
+        this.state = {
+            isVisible: false
+        };
+    }
+
+    handleOpenModal = (e) => {
+        this.setState({
+            isVisible: true
+        });
+    }
+
+    handleCloseModal = () => {
+        this.setState({
+            isVisible: false
+        })
+    }
+
     render() {
         const { genres } = this.props;
         const {
@@ -45,19 +66,25 @@ export default class SearchCard extends Component {
                 className: "px-3 pb-3"
             };
 
-        const imageUrl = window.innerWidth > 576    // sm breakpoint
-            ? `https://image.tmdb.org/t/p/w154/${poster_path}`
-            : `https://image.tmdb.org/t/p/w92/${poster_path}`
+        let imgWidth = 92;              
+        let imgHeight = 138;
+        if (window.innerWidth > 576) {      // sm breakpoint
+            imgWidth = 154;
+            imgHeight = 231;
+        }
 
         return (
             <Col 
                 {...colOptions}
             >
-                <Media className="h-100 p-3 border border-light rounded bg-light hvr-glow">
+                <Media 
+                    className="card-media h-100 p-3 border border-light rounded bg-light hvr-glow"
+                    // onClick={this.handleOpenModal}
+                >
                     {poster_path 
-                        ? <Image src={imageUrl} rounded className="mr-3" />
-                        : <div className="mr-3 border border-secondary rounded text-center bg-secondary" style={{height:"138px", width:"92px"}}>
-                            <FontAwesomeIcon icon="question" size="5x" className="align-self-center mt-4 text-white" />
+                        ? <Image src={`https://image.tmdb.org/t/p/w${imgWidth}/${poster_path}`} rounded className="mr-3" />
+                        : <div className="mr-3 border border-secondary rounded text-center bg-secondary d-flex" style={{height: imgHeight, width: imgWidth}}>
+                            <FontAwesomeIcon icon="question" size={window.innerWidth > 576 ? '8x' : '5x'} className="m-auto text-white" />
                         </div>
                     }
                     <Media.Body className="h-100 d-flex flex-column">
@@ -71,6 +98,13 @@ export default class SearchCard extends Component {
                         />
                     </Media.Body>
                 </Media>
+
+                <DetailModal
+                    isVisible={this.state.isVisible}
+                    details={this.props.details}
+                    closeModal={this.handleCloseModal}
+                    matchedGenres={matchedGenres}
+                />
             </Col>
         )
     }

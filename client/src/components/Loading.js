@@ -6,7 +6,7 @@ export default class Loading extends Component {
 
     render() {
         return (
-            <Container fluid className='text-center'>
+            <Container fluid className='text-center pt-3'>
                 {this.props.small 
                     ? <p>{this.props.message}</p> 
                     : <h3>{this.props.message}</h3>

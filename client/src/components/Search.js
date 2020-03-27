@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Loading from './Loading';
 import CardCarousel from './CardCarousel';
 import NavigationContainer from '../containers/NavigationContainer';
-import SearchCardContainer from '../containers/SearchCardContainer';
+import CardContainer from '../containers/CardContainer';
 import SearchOptionsContainer from '../containers/SearchOptionsContainer';
 import { searchTMDB, getPopularMovies, getPopularTV } from '../api/search';
 import { isSearchQueryValid } from '../utils/validations';
@@ -107,7 +107,7 @@ export default class Search extends Component {
 
         data.results.forEach(item => {
             displayCards.push(
-                <SearchCardContainer 
+                <CardContainer 
                     key={item.id}
                     details={item}
                     isCarousel={isCarousel}
@@ -136,7 +136,7 @@ export default class Search extends Component {
                         hideSearchOptions={this.hideSearchOptions}
                     />
 
-                    <InputGroup size="lg" className='mb-3'>
+                    <InputGroup size="lg" className='my-3'>
                         <Button size="lg" variant="secondary" className="mr-2" onClick={this.showSearchOptions}>
                             <FontAwesomeIcon icon="sliders-h" size="lg"/>
                         </Button>

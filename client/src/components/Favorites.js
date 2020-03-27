@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row } from 'react-bootstrap';
 
 import NavigationContainer from '../containers/NavigationContainer';
-import SearchCardContainer from '../containers/SearchCardContainer';
+import CardContainer from '../containers/CardContainer';
 
 // import testGenreIds from '../testGenreIds.json';
 
@@ -13,7 +13,7 @@ export default class Favorites extends Component {
 
         favorites.forEach(item => {
             displayCards.push(
-                <SearchCardContainer
+                <CardContainer
                     key={item.id}
                     details={item}
                 />
@@ -27,7 +27,8 @@ export default class Favorites extends Component {
         return (
             <>
                 <NavigationContainer />
-                <Container fluid className="main text-center">
+                <Container fluid className="main">
+                    <h5 className='pt-2'>Favorites</h5>
                     {this.props.favorites && this.props.favorites.length 
                         ?
                         this.generateFavorites()

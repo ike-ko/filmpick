@@ -55,19 +55,6 @@ export default class Home extends Component {
                                 <FontAwesomeIcon icon="star" size="sm" className="mx-5"/>
                                 <FontAwesomeIcon icon="star" size="sm"/>
                             </p>
-                            <p className="home-icons">
-                                <FontAwesomeIcon icon="search" size="lg"/>
-                                <FontAwesomeIcon icon="heart" size="lg" className="mx-5"/>
-                                <FontAwesomeIcon icon="thumbs-up" size="lg"/>
-                            </p>
-                            <p className='home-stars'>
-                                <FontAwesomeIcon icon="star" size="sm"/>
-                                <FontAwesomeIcon icon="star" size="sm" className="mx-5"/>
-                                <FontAwesomeIcon icon="star" size="sm"/>
-                                <FontAwesomeIcon icon="star" size="sm" className="mx-5"/>
-                                <FontAwesomeIcon icon="star" size="sm"/>
-                            </p>
-                            <p className="home-tagline pt-3">Search, Favorite, &amp; Recommend!</p>
 
                             <InputGroup size="lg" className='home-searchbar mx-auto px-3 pt-3'>
                                 <FormControl 

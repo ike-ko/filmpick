@@ -1,7 +1,6 @@
 const axios =  require('axios');
 const API_KEYS = require('../../utils/apiKeys')
-
-const TASTEDIVE_API_URL = "https://tastedive.com/api/similar";
+const { TASTEDIVE_API_URL, THEMOVIEDB_API_URL } = require('../../utils/apiUrls');
 
 module.exports = app => {
     app.get('/api/recommend', async (req, res) => {
@@ -10,37 +9,68 @@ module.exports = app => {
         const { q } = query;
 
         try {
+            let foundRecs = [];
+
             const tdMovieRes = await axios.get(
                 TASTEDIVE_API_URL, {
                     params: {
                         k: API_KEYS.TASTEDIVE_API_KEY,
                         q,
-                        limit: 10,
+                        limit: 5,
                         info: 1,
                         type: "movies"
                     }
                 }
             ).then(res => res.data);
+
+            tdMovieRes.Similar.Results.forEach(async (rec) => {
+                const recRes = await axios.get(
+                    `/search/movie`, {
+                        baseURL: THEMOVIEDB_API_URL,
+                        params: {
+                            api_key: API_KEYS.THEMOVIEDB_API_KEY,
+                            query: rec.Name
+                        }
+                    }
+                ).then(res => res.data);
+
+                if (recRes.results.length > 0) {
+                    foundRecs.push(recRes.results[0]);
+                }
+            });
             
-            const tdTVRes = await axios.get(
+            const tdTvRes = await axios.get(
                 TASTEDIVE_API_URL, {
                     params: {
                         k: API_KEYS.TASTEDIVE_API_KEY,
                         q,
-                        limit: 10,
+                        limit: 5,
                         info: 1,
                         type: "shows"
                     }
                 }
             ).then(res => res.data);
 
-            let resArr = [...tdMovieRes.Similar.Results, ...tdTVRes.Similar.Results];
-            resArr.sort((a, b) => (a.Name > b.Name) ? 1 : -1);
+            tdTvRes.Similar.Results.forEach(async (rec) => {
+                const recRes = await axios.get(
+                    `/search/tv`, {
+                        baseURL: THEMOVIEDB_API_URL,
+                        params: {
+                            api_key: API_KEYS.THEMOVIEDB_API_KEY,
+                            query: rec.Name
+                        }
+                    }
+                ).then(res => res.data);
+
+                if (recRes.results.length > 0) {
+                    foundRecs.push(recRes.results[0]);
+                }
+            });
 
             return res.send({
                 success: true,
                 message: 'Recommend successful',
-                results: resArr
+                results: foundRecs
             });
         }
         catch (err) {

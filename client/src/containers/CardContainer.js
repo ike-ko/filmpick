@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import SearchCard from '../components/SearchCard'
+import Card from '../components/Card'
 
 const mapStateToProps = (state, ownProps) => ({
     genres: state.mediaInfo.genres
@@ -9,4 +9,4 @@ const mapDispatchToProps = dispatch => ({
     
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchCard)
+export default connect(mapStateToProps, mapDispatchToProps)(Card)
