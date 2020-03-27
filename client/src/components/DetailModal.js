@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
 import { Modal, Button, Media, Image } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ISO6391 from 'iso-639-1';
 
 import FavoriteButtonContainer from '../containers/FavoriteButtonContainer';
 
 export default class DetailModal extends Component {
     render() {
-        const { details } = this.props;
+        const { details, matchedGenres } = this.props;
         const {
             poster_path,
+            original_language,
+            overview
         } = details;
         
         const title = details.title || details.name;
-        const releaseDate = details.release_date || details.first_air_date;
+        const originalReleaseDate = details.release_date || details.first_air_date;
+        const datePattern = /^(\d{4})-(\d{2})-(\d{2})$/;
+        const [, year, month, day] = datePattern.exec(originalReleaseDate);
+        const releaseDate = new Date(`${year}, ${month} ${day}`);
 
         return (
             <Modal 
@@ -22,9 +28,9 @@ export default class DetailModal extends Component {
                 <Modal.Header closeButton>
                     <Modal.Title>{title}</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className="h-100">
                     <Media 
-                        // className="card-media h-100 p-3 border border-light rounded bg-light hvr-glow"
+                        className="h-100"
                     >
                         {poster_path 
                             ? <Image src={`https://image.tmdb.org/t/p/w154/${poster_path}`} rounded className="mr-3" />
@@ -32,10 +38,10 @@ export default class DetailModal extends Component {
                                 <FontAwesomeIcon icon="question" size='8x' className="m-auto text-white" />
                             </div>
                         }
-                        <Media.Body className="h-100 d-flex flex-column">
-                            {releaseDate && <h6>Release Date: {releaseDate}</h6>}
-                            <h6 className='search-card-genres'>{this.props.matchedGenres}</h6>
-                            {/* <p>{overview}</p> */}
+                        <Media.Body className="modal-media-body h-100 d-flex flex-column">
+                            {releaseDate && <><h6><strong>Release Date</strong></h6><h6>{releaseDate.toDateString().substring(3)}</h6></>}
+                            {original_language && <><h6><strong>Original Language</strong></h6><h6>{ISO6391.getName(original_language)}</h6></>}
+                            {matchedGenres && <><h6><strong>Genre</strong></h6><h6>{matchedGenres}</h6></>}
 
                             <FavoriteButtonContainer 
                                 details={this.props.details}
@@ -43,6 +49,8 @@ export default class DetailModal extends Component {
                         </Media.Body>
                     </Media>
                 </Modal.Body>
+
+                <p className='detail-modal-overview'>{overview}</p>
 
                 <Modal.Footer>
                     <Button variant="outline-secondary" onClick={this.props.closeModal}>Close</Button>
