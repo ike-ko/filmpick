@@ -16,9 +16,12 @@ export default class DetailModal extends Component {
         
         const title = details.title || details.name;
         const originalReleaseDate = details.release_date || details.first_air_date;
-        const datePattern = /^(\d{4})-(\d{2})-(\d{2})$/;
-        const [, year, month, day] = datePattern.exec(originalReleaseDate);
-        const releaseDate = new Date(`${year}, ${month} ${day}`);
+        let releaseDate = null;
+        if (originalReleaseDate) {
+            const datePattern = /^(\d{4})-(\d{2})-(\d{2})$/;
+            const [, year, month, day] = datePattern.exec(originalReleaseDate);
+            releaseDate = new Date(`${year}, ${month} ${day}`);
+        }
 
         const isMobile = window.innerWidth < 576;
 
@@ -36,7 +39,7 @@ export default class DetailModal extends Component {
                     >
                         {poster_path 
                             ? <Image src={`https://image.tmdb.org/t/p/w154/${poster_path}`} rounded className="mr-3" />
-                            : <div className="mr-3 border border-secondary rounded text-center bg-secondary d-flex" style={{height: 92, width: 138}}>
+                            : <div className="mr-3 border border-secondary rounded text-center bg-secondary d-flex" style={{height: 231, width: 154}}>
                                 <FontAwesomeIcon icon="question" size='8x' className="m-auto text-white" />
                             </div>
                         }
