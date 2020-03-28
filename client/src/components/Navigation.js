@@ -14,8 +14,23 @@ export default class Navigation extends Component {
         this.state = {
             isLoginVisible: false,
             isRegisterVisible: false,
-            redirectUrl: ''
+            redirectUrl: '',
+            isExpanded: false
         };
+    }
+
+    componentDidMount() {
+        document.addEventListener('mousedown', this.handleClickOutside);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClickOutside);
+    }
+
+    handleClickOutside = (e) => {
+        if (this.wrapperRef && !this.wrapperRef.contains(e.target)) {
+            this.closeNavbar();
+        }
     }
 
     showRegister = () => {
@@ -54,6 +69,24 @@ export default class Navigation extends Component {
         this.showLogin();
     }
 
+    openNavbar = () => {
+        this.setState({
+            isExpanded: true
+        })
+    }
+
+    closeNavbar = () => {
+        this.setState({
+            isExpanded: false
+        })
+    }
+
+    toggleNavbar = () => {
+        this.setState((prevState) => ({
+            isExpanded: !prevState.isExpanded
+        }))
+    }
+
     render() {
         const { isHome } = this.props;
 
@@ -63,10 +96,13 @@ export default class Navigation extends Component {
                 bg="primary"
                 variant="dark"
                 expand={ isHome ? "xs" : "lg"}
+                expanded={this.state.isExpanded}
                 fixed="top"
                 className='d-flex navbar-gradient'
+                onSelect={this.closeNavbar}
+                ref={(node) => this.wrapperRef = node}
             >
-                {<Navbar.Toggle aria-controls="responsive-navbar-nav" />}
+                {<Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={this.toggleNavbar}/>}
                 {!isHome && <Navbar.Brand as={Link} to="/" className={'logo-filmpick navbar-brand-filmpick mx-auto'}>
                     Filmpick
                 </Navbar.Brand>}
@@ -74,32 +110,31 @@ export default class Navigation extends Component {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mx-auto">
                         { this.props.resetSearch 
-                            ? <Nav.Link eventKey="1" onClick={this.props.resetSearch}>Search</Nav.Link>
-                            : <Nav.Link eventKey="1" as={Link} to="/search">Search</Nav.Link>
+                            ? <Nav.Link className='nav-link hvr-underline-from-center' onClick={this.props.resetSearch}>Search</Nav.Link>
+                            : <Nav.Link className='nav-link hvr-underline-from-center' as={Link} to="/search">Search</Nav.Link>
                         }
                         { this.props.isLoggedIn 
                             ?
                             <>
-                                <Nav.Link eventKey="2" as={Link} to="/favorites">Favorites</Nav.Link>
-                                <Nav.Link eventKey="3" as={Link} to="/recommendations">Recommendations</Nav.Link>
+                                <Nav.Link className='nav-link hvr-underline-from-center' as={Link} to="/favorites">Favorites</Nav.Link>
+                                <Nav.Link className='nav-link hvr-underline-from-center' as={Link} to="/recommendations">Recommendations</Nav.Link>
                             </>
                             :
                             <>
-                                <Nav.Link eventKey="2" onClick={() => this.handleLogin('/favorites')}>Favorites</Nav.Link>
-                                <Nav.Link eventKey="3" onClick={() => this.handleLogin('/recommendations')}>Recommendations</Nav.Link>
+                                <Nav.Link className='nav-link hvr-underline-from-center' onClick={() => this.handleLogin('/favorites')}>Favorites</Nav.Link>
+                                <Nav.Link className='nav-link hvr-underline-from-center' onClick={() => this.handleLogin('/recommendations')}>Recommendations</Nav.Link>
                             </>
                         }
                     </Nav>
                     { this.props.isLoggedIn 
                         ? 
                         <Nav>
-                            {/* <Nav.Link>Account</Nav.Link> */}
-                            <Nav.Link eventKey="4" onClick={this.handleLogOut}>Log Out</Nav.Link>
+                            <Nav.Link className='nav-link hvr-underline-from-center' onClick={this.handleLogOut}>Log Out</Nav.Link>
                         </Nav>
                         :
                         <Nav>
-                            <Nav.Link eventKey="5" onClick={this.showRegister}>Register</Nav.Link>
-                            <Nav.Link eventKey="6" onClick={this.showLogin}>Log In</Nav.Link>
+                            <Nav.Link className='nav-link hvr-underline-from-center' onClick={this.showRegister}>Register</Nav.Link>
+                            <Nav.Link className='nav-link hvr-underline-from-center' onClick={this.showLogin}>Log In</Nav.Link>
                         </Nav>
                     }
                 </Navbar.Collapse>
@@ -107,12 +142,14 @@ export default class Navigation extends Component {
                 <RegisterContainer
                     isVisible={this.state.isRegisterVisible}
                     hideRegister={this.hideRegister}
+                    showLogin={this.showLogin}
                 />
 
                 <LoginContainer
                     isVisible={this.state.isLoginVisible}
                     hideLogin={this.hideLogin}
                     redirectUrl={this.state.redirectUrl}
+                    showRegister={this.showRegister}
                 />
 
             </Navbar>

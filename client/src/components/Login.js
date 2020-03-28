@@ -64,25 +64,25 @@ export default withRouter(class Login extends Component {
                 const favRes = await getFavorites();
                 if (favRes.data && favRes.data.favorites)
                     this.props.setFavorites(favRes.data.favorites);
+                this.setState({
+                    isLoading: false
+                }, () => this.handleCloseModal);
                 if (this.props.redirectUrl)
                     this.props.history.push(this.props.redirectUrl);
-                this.handleCloseModal();
             }
             else {
                 this.setState({
-                    loginError: loginRes.data.message
+                    loginError: loginRes.data.message,
+                    isLoading: false
                 });
             }
         }
         else {
             this.setState({
-                loginError: validationLogin.message
+                loginError: validationLogin.message,
+                isLoading: false
             })
         }
-        
-        this.setState({
-            isLoading: false
-        });
     }
 
     render() {
@@ -117,6 +117,7 @@ export default withRouter(class Login extends Component {
                             {this.state.loginError && <Form.Label className="text-danger">{this.state.loginError}</Form.Label>}
                     </Modal.Body>
                     <Modal.Footer>
+                        <Button className='mr-auto' variant="outline-secondary" onClick={() => {this.props.hideLogin(); this.props.showRegister()}}>Need an account?</Button>
                         <Button variant="outline-secondary" onClick={this.handleCloseModal}>
                             Close
                         </Button>
