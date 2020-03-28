@@ -20,17 +20,11 @@ export default class Navigation extends Component {
     }
 
     componentDidMount() {
-        document.addEventListener('mousedown', this.handleClickOutside);
+        document.addEventListener('mousedown', this.closeNavbar);
     }
 
     componentWillUnmount() {
-        document.removeEventListener('mousedown', this.handleClickOutside);
-    }
-
-    handleClickOutside = (e) => {
-        if (this.wrapperRef && !this.wrapperRef.contains(e.target)) {
-            this.closeNavbar();
-        }
+        document.removeEventListener('mousedown', this.closeNavbar);
     }
 
     showRegister = () => {
@@ -100,7 +94,6 @@ export default class Navigation extends Component {
                 fixed="top"
                 className='d-flex navbar-gradient'
                 onSelect={this.closeNavbar}
-                ref={(node) => this.wrapperRef = node}
             >
                 {<Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={this.toggleNavbar}/>}
                 {!isHome && <Navbar.Brand as={Link} to="/" className={'logo-filmpick navbar-brand-filmpick mx-auto'}>
