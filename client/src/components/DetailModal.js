@@ -20,6 +20,8 @@ export default class DetailModal extends Component {
         const [, year, month, day] = datePattern.exec(originalReleaseDate);
         const releaseDate = new Date(`${year}, ${month} ${day}`);
 
+        const isMobile = window.innerWidth < 576;
+
         return (
             <Modal 
                 show={this.props.isVisible}
@@ -39,16 +41,46 @@ export default class DetailModal extends Component {
                             </div>
                         }
                         <Media.Body className="modal-media-body h-100 d-flex flex-column">
-                            {releaseDate && <><h6><strong>Release Date</strong></h6><h6>{releaseDate.toDateString().substring(3)}</h6></>}
-                            {original_language && <><h6><strong>Original Language</strong></h6><h6>{ISO6391.getName(original_language)}</h6></>}
-                            {matchedGenres && <><h6><strong>Genre</strong></h6><h6>{matchedGenres}</h6></>}
-
-                            <FavoriteButtonContainer 
+                            {releaseDate && 
+                                <>
+                                    <h6 className={isMobile ? 'modal-body-label mb-0' : ''}>
+                                        <strong>Release Date</strong>
+                                    </h6>
+                                    <h6>
+                                        {releaseDate.toDateString().substring(3)}
+                                    </h6>
+                                </>
+                            }
+                            {original_language &&
+                                <>
+                                    <h6 className={isMobile ? 'modal-body-label mb-0' : ''}>
+                                        <strong>Original Language</strong>
+                                    </h6>
+                                    <h6>
+                                        {ISO6391.getName(original_language)}
+                                    </h6>
+                                </>
+                            }
+                            {matchedGenres &&
+                                <>
+                                    <h6 className={isMobile ? 'modal-body-label mb-0' : ''}>
+                                        <strong>Genre</strong>
+                                    </h6>
+                                    <h6>
+                                        {matchedGenres}
+                                    </h6>
+                                </>
+                            }
+                            {!isMobile && <FavoriteButtonContainer 
                                 details={this.props.details}
-                            />
+                            />}
                         </Media.Body>
                     </Media>
                 </Modal.Body>
+                
+                {isMobile && <FavoriteButtonContainer 
+                    details={this.props.details}
+                />}
 
                 <p className='detail-modal-overview'>{overview}</p>
 

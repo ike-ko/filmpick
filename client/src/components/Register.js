@@ -116,6 +116,7 @@ export default class Register extends Component {
                             {this.state.registerError && <Form.Label className="text-danger">{this.state.registerError}</Form.Label>}
                     </Modal.Body>
                     <Modal.Footer>
+                        <Button className='mr-auto' variant="outline-secondary" onClick={() => {this.props.hideRegister(); this.props.showLogin()}}>Already have an account?</Button>
                         <Button variant="outline-secondary" onClick={this.handleCloseModal}>
                             Close
                         </Button>
