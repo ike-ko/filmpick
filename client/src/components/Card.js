@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import DetailModal from './DetailModal';
 import FavoriteButtonContainer from '../containers/FavoriteButtonContainer';
+import { MOBILE_BREAKPOINT, TMDB_LG_IMG_HEIGHT, TMDB_SM_IMG_HEIGHT, TMDB_LG_IMG_WIDTH, TMDB_SM_IMG_WIDTH } from '../utils/constants';
 
 export default class Card extends Component {
     constructor() {
@@ -36,6 +37,8 @@ export default class Card extends Component {
         const title = this.props.details.title || this.props.details.name;
         const releaseDate = this.props.details.release_date || this.props.details.first_air_date;
 
+        const isBrowser = window.innerWidth > MOBILE_BREAKPOINT;
+
         let matchedGenres = "";
         if (genres) {
             genre_ids.forEach(gid => {
@@ -62,12 +65,8 @@ export default class Card extends Component {
                 className: "px-3 pb-3"
             };
 
-        let imgWidth = 92;              
-        let imgHeight = 138;
-        if (window.innerWidth > 576) {      // sm breakpoint
-            imgWidth = 154;
-            imgHeight = 231;
-        }
+        const imgWidth = isBrowser ? TMDB_LG_IMG_WIDTH : TMDB_SM_IMG_WIDTH;           
+        const imgHeight = isBrowser ? TMDB_LG_IMG_HEIGHT : TMDB_SM_IMG_HEIGHT;
 
         return (
             <Col 
@@ -80,7 +79,7 @@ export default class Card extends Component {
                     {poster_path 
                         ? <Image src={`https://image.tmdb.org/t/p/w${imgWidth}/${poster_path}`} rounded className="mr-3" />
                         : <div className="mr-3 border border-secondary rounded text-center bg-secondary d-flex" style={{height: imgHeight, width: imgWidth}}>
-                            <FontAwesomeIcon icon="question" size={window.innerWidth > 576 ? '8x' : '5x'} className="m-auto text-white" />
+                            <FontAwesomeIcon icon="question" size={isBrowser ? '8x' : '5x'} className="m-auto text-white" />
                         </div>
                     }
                     <Media.Body className="h-100 d-flex flex-column">
@@ -99,6 +98,7 @@ export default class Card extends Component {
                     details={this.props.details}
                     closeModal={this.handleCloseModal}
                     matchedGenres={matchedGenres}
+                    isBrowser={isBrowser}
                 />
             </Col>
         )

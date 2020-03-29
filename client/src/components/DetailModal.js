@@ -7,7 +7,7 @@ import FavoriteButtonContainer from '../containers/FavoriteButtonContainer';
 
 export default class DetailModal extends Component {
     render() {
-        const { details, matchedGenres } = this.props;
+        const { details, matchedGenres, isBrowser } = this.props;
         const {
             poster_path,
             original_language,
@@ -24,8 +24,6 @@ export default class DetailModal extends Component {
             const [, year, month, day] = datePattern.exec(originalReleaseDate);
             releaseDate = new Date(`${year}, ${month} ${day}`);
         }
-
-        const isMobile = window.innerWidth < 576;
 
         return (
             <Modal 
@@ -82,14 +80,14 @@ export default class DetailModal extends Component {
                                     </h6>
                                 </>
                             }
-                            {!isMobile && <FavoriteButtonContainer 
+                            {isBrowser && <FavoriteButtonContainer 
                                 details={this.props.details}
                             />}
                         </Media.Body>
                     </Media>
                 </Modal.Body>
                 
-                {isMobile && <FavoriteButtonContainer 
+                {!isBrowser && <FavoriteButtonContainer 
                     details={this.props.details}
                 />}
 
