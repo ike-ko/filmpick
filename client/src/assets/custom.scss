@@ -20,6 +20,11 @@
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
 }
 
+.hidden-element {
+    visibility: hidden;
+    user-select: none;
+}
+
 .main {
     padding-top: 56px;
 }

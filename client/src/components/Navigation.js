@@ -20,11 +20,16 @@ export default class Navigation extends Component {
     }
 
     componentDidMount() {
-        document.addEventListener('mousedown', this.closeNavbar);
+        document.addEventListener('mousedown', this.handleClick);
     }
 
     componentWillUnmount() {
-        document.removeEventListener('mousedown', this.closeNavbar);
+        document.removeEventListener('mousedown', this.handleClick);
+    }
+
+    handleClick = (e) => {
+        if (this.toggleRef && !this.toggleRef.contains(e.target))
+            this.closeNavbar();
     }
 
     showRegister = () => {
@@ -89,16 +94,16 @@ export default class Navigation extends Component {
                 collapseOnSelect
                 bg="primary"
                 variant="dark"
-                expand={ isHome ? "xs" : "lg"}
+                expand="lg"
                 expanded={this.state.isExpanded}
                 fixed="top"
                 className='d-flex navbar-gradient'
                 onSelect={this.closeNavbar}
             >
-                {<Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={this.toggleNavbar}/>}
-                {!isHome && <Navbar.Brand as={Link} to="/" className={'logo-filmpick navbar-brand-filmpick mx-auto'}>
+                {<Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={this.toggleNavbar} ref={node => this.toggleRef = node}/>}
+                <Navbar.Brand as={Link} to="/" className={!isHome ? 'logo-filmpick navbar-brand-filmpick mx-auto' : 'logo-filmpick navbar-brand-filmpick mx-auto hidden-element'}>
                     Filmpick
-                </Navbar.Brand>}
+                </Navbar.Brand>
                 <Navbar.Brand className='d-block d-sm-none ml-4' />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mx-auto">
