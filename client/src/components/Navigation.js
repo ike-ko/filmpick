@@ -123,6 +123,7 @@ export default class Navigation extends Component {
                                 <Nav.Link className='nav-link' onClick={() => this.handleLogin('/recommendations')}>Recommendations</Nav.Link>
                             </>
                         }
+                        <Nav.Link className='nav-link' as={Link} to="/about">About</Nav.Link>
                     </Nav>
                     { this.props.isLoggedIn 
                         ? 

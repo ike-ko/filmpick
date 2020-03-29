@@ -12,6 +12,7 @@ import RecommendationsContainer from './containers/RecommendationsContainer';
 import SearchContainer from './containers/SearchContainer';
 
 import Home from './components/Home';
+import About from './components/About';
 
 import { verifyUser } from './api/user';
 import { getFavorites } from './api/favorites';
@@ -60,6 +61,7 @@ class App extends Component {
                 <Route path="/search" component={SearchContainer} />
                 <Route path="/favorites" component={FavoritesContainer} />
                 <Route path="/recommendations" component={RecommendationsContainer} />
+                <Route path="/about" component={About} />
             </Router>
         );
     }
