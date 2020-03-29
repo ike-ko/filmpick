@@ -11,20 +11,33 @@ module.exports = app => {
         try {
             let foundRecs = [];
 
-            const tdMovieRes = await axios.get(
-                TASTEDIVE_API_URL, {
-                    params: {
-                        k: API_KEYS.TASTEDIVE_API_KEY,
-                        q,
-                        limit: 5,
-                        info: 1,
-                        type: "movies"
+            const [tdMovieRes, tdTvRes] = await Promise.all([
+                axios.get(
+                    TASTEDIVE_API_URL, {
+                        params: {
+                            k: API_KEYS.TASTEDIVE_API_KEY,
+                            q,
+                            limit: 5,
+                            info: 1,
+                            type: "movies"
+                        }
                     }
-                }
-            ).then(res => res.data);
+                ).then(res => res.data),
+                axios.get(
+                    TASTEDIVE_API_URL, {
+                        params: {
+                            k: API_KEYS.TASTEDIVE_API_KEY,
+                            q,
+                            limit: 5,
+                            info: 1,
+                            type: "shows"
+                        }
+                    }
+                ).then(res => res.data)
+            ])
 
-            tdMovieRes.Similar.Results.forEach(async (rec) => {
-                const recRes = await axios.get(
+            const tmdbMovieRequests = tdMovieRes.Similar.Results.map(rec => 
+                axios.get(
                     `/search/movie`, {
                         baseURL: THEMOVIEDB_API_URL,
                         params: {
@@ -32,27 +45,11 @@ module.exports = app => {
                             query: rec.Name
                         }
                     }
-                ).then(res => res.data);
+                ).then(res => res.data)
+            );
 
-                if (recRes.results.length > 0) {
-                    foundRecs.push(recRes.results[0]);
-                }
-            });
-            
-            const tdTvRes = await axios.get(
-                TASTEDIVE_API_URL, {
-                    params: {
-                        k: API_KEYS.TASTEDIVE_API_KEY,
-                        q,
-                        limit: 5,
-                        info: 1,
-                        type: "shows"
-                    }
-                }
-            ).then(res => res.data);
-
-            tdTvRes.Similar.Results.forEach(async (rec) => {
-                const recRes = await axios.get(
+            const tmdbTvRequests = tdTvRes.Similar.Results.map(rec => 
+                axios.get(
                     `/search/tv`, {
                         baseURL: THEMOVIEDB_API_URL,
                         params: {
@@ -60,11 +57,14 @@ module.exports = app => {
                             query: rec.Name
                         }
                     }
-                ).then(res => res.data);
+                ).then(res => res.data)
+            );
 
-                if (recRes.results.length > 0) {
-                    foundRecs.push(recRes.results[0]);
-                }
+            await Promise.all([...tmdbMovieRequests, ...tmdbTvRequests]).then(tmdbResults => {
+                tmdbResults.forEach(res => {
+                    if (res.results.length > 0)
+                        foundRecs.push(res.results[0]);
+                })
             });
 
             return res.send({
