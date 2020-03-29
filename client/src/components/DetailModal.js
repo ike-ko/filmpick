@@ -14,6 +14,8 @@ export default class DetailModal extends Component {
             overview
         } = details;
         
+        const isMovie = details.title ? true : false;
+
         const title = details.title || details.name;
         const originalReleaseDate = details.release_date || details.first_air_date;
         let releaseDate = null;
@@ -44,9 +46,15 @@ export default class DetailModal extends Component {
                             </div>
                         }
                         <Media.Body className="modal-media-body h-100 d-flex flex-column">
+                            <h6 className='modal-body-label mb-0'>
+                                <strong>Type</strong>
+                            </h6>
+                            <h6>
+                                {isMovie ? 'Movie' : 'TV Show'}
+                            </h6>
                             {releaseDate && 
                                 <>
-                                    <h6 className={isMobile ? 'modal-body-label mb-0' : ''}>
+                                    <h6 className='modal-body-label mb-0'>
                                         <strong>Release Date</strong>
                                     </h6>
                                     <h6>
@@ -56,7 +64,7 @@ export default class DetailModal extends Component {
                             }
                             {original_language &&
                                 <>
-                                    <h6 className={isMobile ? 'modal-body-label mb-0' : ''}>
+                                    <h6 className='modal-body-label mb-0'>
                                         <strong>Original Language</strong>
                                     </h6>
                                     <h6>
@@ -66,7 +74,7 @@ export default class DetailModal extends Component {
                             }
                             {matchedGenres &&
                                 <>
-                                    <h6 className={isMobile ? 'modal-body-label mb-0' : ''}>
+                                    <h6 className='modal-body-label mb-0'>
                                         <strong>Genre</strong>
                                     </h6>
                                     <h6>

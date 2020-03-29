@@ -32,13 +32,9 @@ export default class Card extends Component {
             poster_path,
             genre_ids
         } = this.props.details;
-        // let { overview } = this.props.details;
 
         const title = this.props.details.title || this.props.details.name;
         const releaseDate = this.props.details.release_date || this.props.details.first_air_date;
-
-        // if (overview.length > 200)
-        //     overview = overview.substring(0, 200) + "..";
 
         let matchedGenres = "";
         if (genres) {
