@@ -7,13 +7,15 @@ import FavoriteButtonContainer from '../containers/FavoriteButtonContainer';
 
 export default class DetailModal extends Component {
     render() {
-        const { details, matchedGenres } = this.props;
+        const { details, matchedGenres, isBrowser } = this.props;
         const {
             poster_path,
             original_language,
             overview
         } = details;
         
+        const isMovie = details.title ? true : false;
+
         const title = details.title || details.name;
         const originalReleaseDate = details.release_date || details.first_air_date;
         let releaseDate = null;
@@ -22,8 +24,6 @@ export default class DetailModal extends Component {
             const [, year, month, day] = datePattern.exec(originalReleaseDate);
             releaseDate = new Date(`${year}, ${month} ${day}`);
         }
-
-        const isMobile = window.innerWidth < 576;
 
         return (
             <Modal 
@@ -44,9 +44,15 @@ export default class DetailModal extends Component {
                             </div>
                         }
                         <Media.Body className="modal-media-body h-100 d-flex flex-column">
+                            <h6 className='modal-body-label mb-0'>
+                                <strong>Type</strong>
+                            </h6>
+                            <h6>
+                                {isMovie ? 'Movie' : 'TV Show'}
+                            </h6>
                             {releaseDate && 
                                 <>
-                                    <h6 className={isMobile ? 'modal-body-label mb-0' : ''}>
+                                    <h6 className='modal-body-label mb-0'>
                                         <strong>Release Date</strong>
                                     </h6>
                                     <h6>
@@ -56,7 +62,7 @@ export default class DetailModal extends Component {
                             }
                             {original_language &&
                                 <>
-                                    <h6 className={isMobile ? 'modal-body-label mb-0' : ''}>
+                                    <h6 className='modal-body-label mb-0'>
                                         <strong>Original Language</strong>
                                     </h6>
                                     <h6>
@@ -66,7 +72,7 @@ export default class DetailModal extends Component {
                             }
                             {matchedGenres &&
                                 <>
-                                    <h6 className={isMobile ? 'modal-body-label mb-0' : ''}>
+                                    <h6 className='modal-body-label mb-0'>
                                         <strong>Genre</strong>
                                     </h6>
                                     <h6>
@@ -74,14 +80,14 @@ export default class DetailModal extends Component {
                                     </h6>
                                 </>
                             }
-                            {!isMobile && <FavoriteButtonContainer 
+                            {isBrowser && <FavoriteButtonContainer 
                                 details={this.props.details}
                             />}
                         </Media.Body>
                     </Media>
                 </Modal.Body>
                 
-                {isMobile && <FavoriteButtonContainer 
+                {!isBrowser && <FavoriteButtonContainer 
                     details={this.props.details}
                 />}
 
