@@ -16,7 +16,17 @@ export default class Recommendations extends Component {
         }
     }
 
-    async componentDidMount() {
+    componentDidMount() {
+        this.queryForRecommendations();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.favorites !== this.props.favorites) {
+            this.queryForRecommendations();
+        }
+    }
+
+    queryForRecommendations = async () => {
         const { favorites } = this.props;
         this.setState({
             isLoading: true
