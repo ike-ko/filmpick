@@ -17,8 +17,6 @@ export default class About extends Component {
                             search and get details on movies and TV shows and <a href='https://tastedive.com/read/api'>Tastedive</a> to generate recommendations based on favorited items. The front end
                             client was created in React, with Bootstrap for responsive design. The back end was created in Node.js with Express as the web app framework and MongoDB as the database.
                             All of this is hosted on Heroku, which continuously deploys from <a href='https://github.com/ike-ko/filmpick'>this GitHub repository</a>.
-                            <br/><br/>
-                            Created by <a href='https://www.linkedin.com/in/ko-iketani/'>this guy</a>.
                         </p>
                     </Container>
                 </Container>

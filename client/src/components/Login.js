@@ -66,7 +66,7 @@ export default withRouter(class Login extends Component {
                     this.props.setFavorites(favRes.data.favorites);
                 this.setState({
                     isLoading: false
-                }, () => this.handleCloseModal);
+                }, () => this.handleCloseModal());
                 if (this.props.redirectUrl)
                     this.props.history.push(this.props.redirectUrl);
             }

@@ -27,10 +27,10 @@ export default class FavoriteButton extends Component {
             this.props.isLoggedIn ?
                 <Button 
                     variant={this.isInFavorites() ? "success" : "info"}
-                    className="mt-auto"
+                    className="mt-auto hvr-grow"
                     onClick={this.handleSetFavorite}
                 >
-                    <FontAwesomeIcon icon="heart" />
+                    <FontAwesomeIcon className='hvr-grow-icon' icon="heart" />
                 </Button>
             :
                 <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Log in to favorite!</Tooltip>}>
