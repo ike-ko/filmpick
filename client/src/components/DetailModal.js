@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ISO6391 from 'iso-639-1';
 
 import FavoriteButtonContainer from '../containers/FavoriteButtonContainer';
+import { TMDB_LG_IMG_HEIGHT, TMDB_LG_IMG_WIDTH } from '../utils/constants';
 
 export default class DetailModal extends Component {
     constructor() {
@@ -53,7 +54,7 @@ export default class DetailModal extends Component {
                     >
                         {poster_path && this.state.isImageLoaded 
                             ? <Image src={`https://image.tmdb.org/t/p/w154/${poster_path}`} onError={this.handleImageLoadError} rounded className="mr-3" />
-                            : <div className="mr-3 border border-secondary rounded text-center bg-secondary d-flex" style={{height: 231, width: 154}}>
+                            : <div className="mr-3 border border-secondary rounded text-center bg-secondary d-flex" style={{height: TMDB_LG_IMG_HEIGHT, width: TMDB_LG_IMG_WIDTH}}>
                                 <FontAwesomeIcon icon="question" size='8x' className="m-auto text-white" />
                             </div>
                         }
