@@ -11,7 +11,8 @@ export default class Card extends Component {
         super();
 
         this.state = {
-            isVisible: false
+            isVisible: false,
+            isImageLoaded: true
         };
     }
 
@@ -24,6 +25,12 @@ export default class Card extends Component {
     handleCloseModal = () => {
         this.setState({
             isVisible: false
+        })
+    }
+    
+    handleImageLoadError = () => {
+        this.setState({
+            isImageLoaded: false
         })
     }
 
@@ -76,8 +83,8 @@ export default class Card extends Component {
                     className="card-media h-100 p-3 border border-light rounded bg-light hvr-glow"
                     onClick={this.handleOpenModal}
                 >
-                    {poster_path 
-                        ? <Image src={`https://image.tmdb.org/t/p/w${imgWidth}/${poster_path}`} rounded className="mr-3" />
+                    {poster_path && this.state.isImageLoaded
+                        ? <Image src={`https://image.tmdb.org/t/p/w${imgWidth}/${poster_path}`} onError={this.handleImageLoadError} rounded className="mr-3" />
                         : <div className="mr-3 border border-secondary rounded text-center bg-secondary d-flex" style={{height: imgHeight, width: imgWidth}}>
                             <FontAwesomeIcon icon="question" size={isBrowser ? '8x' : '5x'} className="m-auto text-white" />
                         </div>
