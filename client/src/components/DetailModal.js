@@ -6,6 +6,20 @@ import ISO6391 from 'iso-639-1';
 import FavoriteButtonContainer from '../containers/FavoriteButtonContainer';
 
 export default class DetailModal extends Component {
+    constructor() {
+        super();
+
+        this.state = {
+            isImageLoaded: true
+        }
+    }
+    
+    handleImageLoadError = () => {
+        this.setState({
+            isImageLoaded: false
+        })
+    }
+
     render() {
         const { details, matchedGenres, isBrowser } = this.props;
         const {
@@ -37,8 +51,8 @@ export default class DetailModal extends Component {
                     <Media 
                         className="h-100"
                     >
-                        {poster_path 
-                            ? <Image src={`https://image.tmdb.org/t/p/w154/${poster_path}`} rounded className="mr-3" />
+                        {poster_path && this.state.isImageLoaded 
+                            ? <Image src={`https://image.tmdb.org/t/p/w154/${poster_path}`} onError={this.handleImageLoadError} rounded className="mr-3" />
                             : <div className="mr-3 border border-secondary rounded text-center bg-secondary d-flex" style={{height: 231, width: 154}}>
                                 <FontAwesomeIcon icon="question" size='8x' className="m-auto text-white" />
                             </div>
