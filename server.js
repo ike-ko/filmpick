@@ -3,12 +3,14 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const path = require('path');
+const sslRedirect = require('heroku-ssl-redirect');
 
 const app = express();
 const port = process.env.PORT || 4000;
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(sslRedirect());
 
 mongoose.connect(
     process.env.MONGODB_URI || 'mongodb://localhost:27017/filmpick',
