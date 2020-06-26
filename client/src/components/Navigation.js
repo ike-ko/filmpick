@@ -108,32 +108,32 @@ export default class Navigation extends Component {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mx-auto">
                         { this.props.resetSearch 
-                            ? <Nav.Link className='nav-link' onClick={this.props.resetSearch}>Search</Nav.Link>
-                            : <Nav.Link className='nav-link' as={Link} to="/search">Search</Nav.Link>
+                            ? <Nav.Link onClick={this.props.resetSearch}>Search</Nav.Link>
+                            : <Nav.Link as={Link} to="/search">Search</Nav.Link>
                         }
                         { this.props.isLoggedIn 
                             ?
                             <>
-                                <Nav.Link className='nav-link' as={Link} to="/favorites">Favorites</Nav.Link>
-                                <Nav.Link className='nav-link' as={Link} to="/recommendations">Recommendations</Nav.Link>
+                                <Nav.Link as={Link} to="/favorites">Favorites</Nav.Link>
+                                <Nav.Link as={Link} to="/recommendations">Recommendations</Nav.Link>
                             </>
                             :
                             <>
-                                <Nav.Link className='nav-link' onClick={() => this.handleLogin('/favorites')}>Favorites</Nav.Link>
-                                <Nav.Link className='nav-link' onClick={() => this.handleLogin('/recommendations')}>Recommendations</Nav.Link>
+                                <Nav.Link onClick={() => this.handleLogin('/favorites')}>Favorites</Nav.Link>
+                                <Nav.Link onClick={() => this.handleLogin('/recommendations')}>Recommendations</Nav.Link>
                             </>
                         }
-                        <Nav.Link className='nav-link' as={Link} to="/about">About</Nav.Link>
+                        <Nav.Link as={Link} to="/about">About</Nav.Link>
                     </Nav>
                     { this.props.isLoggedIn 
                         ? 
                         <Nav>
-                            <Nav.Link className='nav-link' onClick={this.handleLogOut}>Log Out</Nav.Link>
+                            <Nav.Link onClick={this.handleLogOut}>Log Out</Nav.Link>
                         </Nav>
                         :
                         <Nav>
-                            <Nav.Link className='nav-link' onClick={this.showRegister}>Register</Nav.Link>
-                            <Nav.Link className='nav-link' onClick={this.showLogin}>Log In</Nav.Link>
+                            <Nav.Link onClick={this.showRegister}>Register</Nav.Link>
+                            <Nav.Link onClick={this.showLogin}>Log In</Nav.Link>
                         </Nav>
                     }
                 </Navbar.Collapse>
