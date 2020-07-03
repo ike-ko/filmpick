@@ -80,7 +80,7 @@ export default class Card extends Component {
                 {...colOptions}
             >
                 <Media 
-                    className="card-media h-100 p-3 border border-light rounded bg-light hvr-glow"
+                    className="card-media h-100 p-3 border border-light rounded bg-light hvr-float"
                     onClick={this.handleOpenModal}
                 >
                     {poster_path && this.state.isImageLoaded
