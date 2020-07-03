@@ -37,31 +37,18 @@ export default class Home extends Component {
     render() {
         return (
             <>
-                <NavigationContainer isHome={true}/>
+                <NavigationContainer />
 
                 <Container fluid className="home-container text-center">
-                    <div className='home-bg-container'>
-                        <div className='home-bg'/>
-                    </div>
-
                     <div className="home-elements">
-                        <h1 className="logo-filmpick home-logo text-white pt-4 pb-3">Filmpick</h1>
-                            
                         <div className="text-light mb-5">
-                            <p className='home-stars'>
-                                <FontAwesomeIcon icon="star" size="sm"/>
-                                <FontAwesomeIcon icon="star" size="sm" className="mx-5"/>
-                                <FontAwesomeIcon icon="star" size="sm"/>
-                                <FontAwesomeIcon icon="star" size="sm" className="mx-5"/>
-                                <FontAwesomeIcon icon="star" size="sm"/>
-                            </p>
 
                             <InputGroup size="lg" className='home-searchbar mx-auto px-3 pt-3'>
                                 <FormControl 
                                     size="lg"
                                     type="text"
                                     placeholder="Search movies..."
-                                    className="rounded"
+                                    className="rounded shadow-none"
                                     value={this.state.searchQuery}
                                     onChange={this.handleSearchQueryChange}
                                     onKeyPress={this.handleSearchQueryKeyPress}

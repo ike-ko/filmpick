@@ -97,6 +97,7 @@ export default withRouter(class Login extends Component {
                                 <Form.Label>Username</Form.Label>
                                 <Form.Control 
                                     type="text"
+                                    className="user-account-form shadow-none"
                                     placeholder="Enter username"
                                     value={this.state.username}
                                     onChange={this.handleUsernameChange}
@@ -107,6 +108,7 @@ export default withRouter(class Login extends Component {
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control
                                     type="password" 
+                                    className="user-account-form shadow-none"
                                     placeholder="Enter password" 
                                     value={this.state.password} 
                                     onChange={this.handlePasswordChange}
@@ -117,11 +119,11 @@ export default withRouter(class Login extends Component {
                             {this.state.loginError && <Form.Label className="text-danger">{this.state.loginError}</Form.Label>}
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button className='mr-auto' variant="outline-secondary" onClick={() => {this.props.hideLogin(); this.props.showRegister()}}>Need an account?</Button>
-                        <Button variant="outline-secondary" onClick={this.handleCloseModal}>
+                        <Button className='mr-auto' variant="outline-info" onClick={() => {this.props.hideLogin(); this.props.showRegister()}}>Need an account?</Button>
+                        <Button variant="outline-info" onClick={this.handleCloseModal}>
                             Close
                         </Button>
-                        <Button variant="secondary" onClick={this.handleLogin}>
+                        <Button variant="info" onClick={this.handleLogin}>
                             Log In
                         </Button>
                     </Modal.Footer>

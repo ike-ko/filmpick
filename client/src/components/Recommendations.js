@@ -88,12 +88,12 @@ export default class Recommendations extends Component {
                         :
                         this.props.favorites && this.props.favorites.length && this.state.recResults && this.state.recResults.length
                             ?
-                            <><h5 className='pt-2'>Recommendations</h5>
+                            <><h5 className='pt-2'><strong>Recommendations</strong></h5>
                             {this.generateRecommendations()}</>
                             :
                             <>
-                                <h3 className='pt-2'>No recommendations to be made!</h3>
-                                <h5>Search and favorite movies/TV shows to see recommendations based on them!</h5>
+                                <h3 className='pt-2 text-center'><strong>No recommendations to be made!</strong></h3>
+                                <h5 className='text-center'>Search and favorite movies/TV shows to see recommendations based on them!</h5>
                             </>
                     }
                 </Container>

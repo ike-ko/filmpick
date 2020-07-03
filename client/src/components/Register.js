@@ -87,6 +87,7 @@ export default class Register extends Component {
                                 <Form.Label>Username</Form.Label>
                                 <Form.Control 
                                     type="text"
+                                    className="user-account-form shadow-none"
                                     placeholder="Enter username"
                                     value={this.state.username}
                                     onChange={this.handleUsernameChange}
@@ -97,6 +98,7 @@ export default class Register extends Component {
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control
                                     type="password" 
+                                    className="user-account-form shadow-none"
                                     placeholder="Enter password" 
                                     value={this.state.password} 
                                     onChange={this.handlePasswordChange}
@@ -106,7 +108,8 @@ export default class Register extends Component {
                             <Form.Group controlId="formLoginConfirmPassword">
                                 <Form.Label>Confirm Password</Form.Label>
                                 <Form.Control
-                                    type="password" 
+                                    type="password"
+                                    className="user-account-form shadow-none"
                                     placeholder="Confirm password" 
                                     value={this.state.confirmPassword} 
                                     onChange={this.handleConfirmPasswordChange}
@@ -116,11 +119,11 @@ export default class Register extends Component {
                             {this.state.registerError && <Form.Label className="text-danger">{this.state.registerError}</Form.Label>}
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button className='mr-auto' variant="outline-secondary" onClick={() => {this.props.hideRegister(); this.props.showLogin()}}>Already have an account?</Button>
-                        <Button variant="outline-secondary" onClick={this.handleCloseModal}>
+                        <Button className='mr-auto' variant="outline-info" onClick={() => {this.props.hideRegister(); this.props.showLogin()}}>Already have an account?</Button>
+                        <Button variant="outline-info" onClick={this.handleCloseModal}>
                             Close
                         </Button>
-                        <Button variant="secondary" onClick={this.handleRegister}>
+                        <Button variant="info" onClick={this.handleRegister}>
                             Register
                         </Button>
                     </Modal.Footer>

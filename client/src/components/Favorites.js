@@ -28,14 +28,17 @@ export default class Favorites extends Component {
             <>
                 <NavigationContainer />
                 <Container fluid className="main">
-                    <h5 className='pt-2'>Favorites</h5>
+                    
                     {this.props.favorites && this.props.favorites.length 
                         ?
-                        this.generateFavorites()
+                        <>
+                            <h5 className='pt-2'><strong>Favorites</strong></h5>
+                            {this.generateFavorites()}
+                        </>
                         :
                         <>
-                            <h3>No favorites found!</h3>
-                            <h5>Search and favorite movies/TV shows to add them here!</h5>
+                            <h3 className='pt-2 text-center'><strong>No favorites found!</strong></h3>
+                            <h5 className='text-center'>Search and favorite movies/TV shows to add them here!</h5>
                         </>
                     }
                 </Container>

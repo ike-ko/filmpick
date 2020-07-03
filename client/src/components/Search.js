@@ -136,20 +136,20 @@ export default class Search extends Component {
                         hideSearchOptions={this.hideSearchOptions}
                     />
 
-                    <InputGroup size="lg" className='my-3'>
-                        <Button size="lg" variant="secondary" className="mr-2" onClick={this.showSearchOptions}>
+                    <InputGroup size="lg" className='mb-3'>
+                        <Button size="lg" variant="info" className="search-bar-button mr-2" onClick={this.showSearchOptions}>
                             <FontAwesomeIcon icon="sliders-h" size="lg"/>
                         </Button>
                         <FormControl 
                             size="lg"
                             type="text"
                             placeholder="Search..."
-                            className="rounded mr-2"
+                            className="rounded shadow-none mr-2"
                             value={this.state.searchQuery}
                             onChange={this.handleSearchQueryChange}
                             onKeyPress={this.handleSearchQueryKeyPress}
                         />
-                        <Button size="lg" variant="secondary" onClick={this.submitSearch}>
+                        <Button size="lg" variant="info" className="search-bar-button" onClick={this.submitSearch}>
                             <FontAwesomeIcon icon="search" size="lg"/>
                         </Button>
                     </InputGroup>
@@ -159,9 +159,9 @@ export default class Search extends Component {
                         : this.state.searchData
                             ? <Row>{this.state.searchData}</Row>
                             : <>
-                                <h5 className='mb-0'>Popular Movies</h5>
+                                <h5 className='mb-0'><strong>Popular Movies</strong></h5>
                                 <CardCarousel cards={this.state.popularMovies}/>
-                                <h5 className='mb-0'>Popular TV Shows</h5>
+                                <h5 className='mb-0'><strong>Popular TV Shows</strong></h5>
                                 <CardCarousel cards={this.state.popularTV}/>
                               </>
                     }

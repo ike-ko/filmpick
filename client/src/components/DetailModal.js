@@ -109,7 +109,7 @@ export default class DetailModal extends Component {
                 <p className='detail-modal-overview'>{overview}</p>
 
                 <Modal.Footer>
-                    <Button variant="outline-secondary" onClick={this.props.closeModal}>Close</Button>
+                    <Button variant="outline-info" onClick={this.props.closeModal}>Close</Button>
                 </Modal.Footer>
             </Modal>
         )
