@@ -32,7 +32,7 @@ export default class Favorites extends Component {
                     {this.props.favorites && this.props.favorites.length 
                         ?
                         <>
-                            <h4 className='py-3 ml-10'><strong>Favorites</strong></h4>
+                            <h4 className='py-3 main-header'><strong>Favorites</strong></h4>
                             {this.generateFavorites()}
                         </>
                         :
