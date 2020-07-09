@@ -84,11 +84,11 @@ export default class Recommendations extends Component {
                 <NavigationContainer />
                 <Container fluid className="content">
                     {this.state.isLoading
-                        ? <Loading message='Getting your recommendations!'/>
+                        ? <Loading className='pt-3' message='Getting your recommendations!'/>
                         :
                         this.props.favorites && this.props.favorites.length && this.state.recResults && this.state.recResults.length
                             ?
-                            <><h4 className='py-3'><strong>Recommendations</strong></h4>
+                            <><h4 className='py-3 ml-10'><strong>Recommendations</strong></h4>
                             {this.generateRecommendations()}</>
                             :
                             <>
