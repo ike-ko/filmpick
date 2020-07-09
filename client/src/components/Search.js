@@ -136,7 +136,7 @@ export default class Search extends Component {
                         hideSearchOptions={this.hideSearchOptions}
                     />
 
-                    <InputGroup size="lg" className='mb-3'>
+                    <InputGroup size="lg" className='mb-3 search-bar-group'>
                         <Button size="lg" variant="info" className="search-bar-button mr-2" onClick={this.showSearchOptions}>
                             <FontAwesomeIcon icon="sliders-h" size="lg"/>
                         </Button>

@@ -3,8 +3,19 @@
 @import url(https://fonts.googleapis.com/css?family=Lobster:200,300,400,700);
 
 @include media-breakpoint-up(md) { 
-    .home-searchbar {
-        max-width: 60%;
+    .navbar {
+        padding-top: 3rem;
+        padding-left: 10rem;
+        padding-right: 10rem;
+    }
+
+    .main {
+        padding-left: 10rem;
+        padding-right: 10rem;
+    }
+
+    .home-container {
+        padding-top: 4rem;
     }
 }
 
@@ -31,6 +42,15 @@
         height  : 1px;
         width   : 100%;
         border-bottom:1px solid darkgray;
+    }
+    
+    a.navbar-brand-filmpick {
+        margin-top: 0;
+    }
+
+    .home-container {
+        padding-left: 0;
+        padding-right: 0;
     }
 }
 
@@ -93,28 +113,24 @@
     border: 1px solid #ced4da;
 }
 
-.home-container {
-    padding: 0;
+.home-header {
+    font-weight: 600;
+    font-size: 3rem;
 }
 
-.home-elements {
-    position: relative;
-    z-index: 1;
-    padding-top: 56px;
+.home-spacer {
+    height: 0.5rem;
+    background-color: black;
+    border-radius: 1rem;
+    margin-right: 1rem;
 }
 
-.home-logo {
-    font-size: 6rem;
-    user-select: none;
+.spacer-lg {
+    width: 5rem;
 }
 
-.home-icons {
-    font-size: 2.25rem;
-}
-
-.home-tagline {
-    font-size: 1.15rem;
-    user-select: none;
+.spacer-md {
+    width: 3rem;
 }
 
 .home-searchbar {
@@ -166,10 +182,10 @@
 }
 
 .slick-next::before {
-    color: $light;
+    color: $info;
 }
 .slick-prev::before {
-    color: $light;
+    color: $info;
 }
 
 .search-card-genres {
