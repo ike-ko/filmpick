@@ -104,7 +104,7 @@ export default class Navigation extends Component {
                 <Navbar.Brand 
                     as={NavLink}
                     to="/"
-                    className={!isHome ? 'logo-filmpick navbar-brand-filmpick mx-auto' : 'logo-filmpick navbar-brand-filmpick mx-auto hidden-element'}
+                    className={!isHome ? 'hvr-underline-from-left logo-filmpick navbar-brand-filmpick mx-auto' : 'logo-filmpick navbar-brand-filmpick mx-auto hidden-element'}
                 >
                     Filmpick
                 </Navbar.Brand>
@@ -132,12 +132,12 @@ export default class Navigation extends Component {
                     { this.props.isLoggedIn 
                         ? 
                         <Nav>
-                            <Nav.Link onClick={this.handleLogOut}><strong>Log Out</strong></Nav.Link>
+                            <Nav.Link className='hvr-underline-from-right' onClick={this.handleLogOut}><strong>Log Out</strong></Nav.Link>
                         </Nav>
                         :
                         <Nav>
-                            <Nav.Link onClick={this.showRegister}>Register</Nav.Link>
-                            <Nav.Link onClick={this.showLogin}>Log In</Nav.Link>
+                            <Nav.Link className='hvr-underline-from-right' onClick={this.showRegister}>Register</Nav.Link>
+                            <Nav.Link className='hvr-underline-from-right' onClick={this.showLogin}>Log In</Nav.Link>
                         </Nav>
                     }
                 </Navbar.Collapse>
