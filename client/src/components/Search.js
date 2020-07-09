@@ -128,9 +128,9 @@ export default class Search extends Component {
 
     render() {
         return (
-            <>
+            <div className='main'>
                 <NavigationContainer resetSearch={this.resetSearch} />
-                <Container fluid className="main">
+                <Container fluid className="content mt-3">
                     <SearchOptionsContainer 
                         isVisible={this.state.isOptionVisible}
                         hideSearchOptions={this.hideSearchOptions}
@@ -166,7 +166,7 @@ export default class Search extends Component {
                               </>
                     }
                 </Container>
-            </>
+            </div>
         )
     }
 }

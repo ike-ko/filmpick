@@ -80,15 +80,15 @@ export default class Recommendations extends Component {
 
     render() {
         return (
-            <>
+            <div className='main'>
                 <NavigationContainer />
-                <Container fluid className="main">
+                <Container fluid className="content">
                     {this.state.isLoading
                         ? <Loading message='Getting your recommendations!'/>
                         :
                         this.props.favorites && this.props.favorites.length && this.state.recResults && this.state.recResults.length
                             ?
-                            <><h5 className='pt-2'><strong>Recommendations</strong></h5>
+                            <><h4 className='py-3'><strong>Recommendations</strong></h4>
                             {this.generateRecommendations()}</>
                             :
                             <>
@@ -97,7 +97,7 @@ export default class Recommendations extends Component {
                             </>
                     }
                 </Container>
-            </>
+            </div>
         )
     }
 }

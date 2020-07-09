@@ -6,10 +6,10 @@ export default class About extends Component {
 
     render() {
         return (
-            <>
+            <div className='main'>
                 <NavigationContainer />
 
-                <Container fluid className="main">
+                <Container fluid className="content">
                     <Container fluid="sm" className='mt-2 p-2 text-center border border-light rounded bg-light'>
                         <h5 className=''>About</h5>
                         <p>
@@ -26,7 +26,7 @@ export default class About extends Component {
                         </p>
                     </Container>
                 </Container>
-            </>
+            </div>
         )
     }
 }

@@ -25,24 +25,24 @@ export default class Favorites extends Component {
 
     render() {
         return (
-            <>
+            <div className='main'>
                 <NavigationContainer />
-                <Container fluid className="main">
+                <Container fluid className="content">
                     
                     {this.props.favorites && this.props.favorites.length 
                         ?
                         <>
-                            <h5 className='pt-2'><strong>Favorites</strong></h5>
+                            <h4 className='py-3'><strong>Favorites</strong></h4>
                             {this.generateFavorites()}
                         </>
                         :
                         <>
-                            <h3 className='pt-2 text-center'><strong>No favorites found!</strong></h3>
+                            <h3 className='pt-3 text-center'><strong>No favorites found!</strong></h3>
                             <h5 className='text-center'>Search and favorite movies/TV shows to add them here!</h5>
                         </>
                     }
                 </Container>
-            </>
+            </div>
         )
     }
 }

@@ -36,22 +36,22 @@ export default class Home extends Component {
 
     render() {
         return (
-            <>
+            <div className='main'>
                 <NavigationContainer />
 
-                <Container fluid className="main home-container text-center mt-4">
+                <Container className="content home-container text-center mt-4">
                     <Container className="d-block">
                         <Row>
                             <Col xs={0} md={3}/>
                             <Col>
-                                <h1 className='text-left display-4 home-header'>
+                                <h1 className='home-text text-left display-4 home-header'>
                                     Find more of<br/>what you love
                                 </h1>
                                 <div className='mb-2 text-left'>
                                     <div className='home-spacer spacer-lg d-inline-block'/>
                                     <div className='home-spacer spacer-md d-inline-block'/>
                                 </div>
-                                <h4 className='text-left'>
+                                <h4 className='home-text text-left'>
                                     Browse movies &amp; TV shows,<br/>
                                     select your favorites,<br/>
                                     and get recommendations!
@@ -89,7 +89,7 @@ export default class Home extends Component {
                         />
                     }
                 </Container>
-            </>
+            </div>
         )
     }
 }
