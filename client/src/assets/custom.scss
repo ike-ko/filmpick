@@ -2,9 +2,9 @@
 @import './hover.scss';
 @import url(https://fonts.googleapis.com/css?family=Lobster:200,300,400,700);
 
-// Custom Bootstrap utilities
-.ml-10 {
-    margin-left: 7rem !important;
+// Custom Utilities
+.direction-rtl {
+    direction: rtl;
 }
 
 html {
@@ -32,10 +32,18 @@ body {
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.12);
 }
 
+.main-header {
+    margin-left: 0.25rem;
+}
+
 @include media-breakpoint-up(md) { 
     .main {
         margin-left: 10rem;
         margin-right: 10rem;
+    }
+    
+    .main-header {
+        margin-left: 7rem;
     }
 
     .navbar {
@@ -50,6 +58,11 @@ body {
     .content {
         padding-left: 3rem;
         padding-right: 3rem;
+    }
+    
+    .about-content {
+        padding-left: 12rem;
+        padding-right: 12rem;
     }
 
     .home-container {
@@ -69,7 +82,11 @@ body {
 
 @media (max-width: 576px) {
     .content {
-        padding-top: 56px;
+        padding-top: 3rem;
+    }
+
+    .about-main-header {
+        padding-top: 3rem !important;
     }
 
     .navbar {
@@ -94,6 +111,10 @@ body {
     .home-container {
         padding-left: 0;
         padding-right: 0;
+    }
+
+    .col .about-images {
+        display: none;
     }
 }
 
@@ -244,4 +265,24 @@ body {
 
 .modal-content > button {
     margin: 0 1rem 1rem 1rem;
+}
+
+.about-header {
+    font-weight: 600;
+    font-size: 2rem;
+    margin-bottom: 0;
+}
+
+.about-spacer {
+    width: 5rem;
+    height: 0.2rem;
+    border-radius: 1rem;
+    background-color: $accent-dark;
+}
+
+.about-images {
+    padding-top: 2rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
