@@ -7,11 +7,11 @@ import { faFilm, faSlidersH, faSearch, faQuestion, faHeart, faThumbsUp, faStar, 
 import 'bootstrap/scss/bootstrap.scss';
 import './assets/custom.scss';
 
+import HomeContainer from './containers/HomeContainer';
 import FavoritesContainer from './containers/FavoritesContainer';
 import RecommendationsContainer from './containers/RecommendationsContainer';
 import SearchContainer from './containers/SearchContainer';
 
-import Home from './components/Home';
 import About from './components/About';
 
 import { verifyUser } from './api/user';
@@ -57,7 +57,7 @@ class App extends Component {
     render() {
         return (
             <Router>
-                <Route path="/" exact component={Home} /> 
+                <Route path="/" exact component={HomeContainer} /> 
                 <Route path="/search" component={SearchContainer} />
                 <Route path="/favorites" component={FavoritesContainer} />
                 <Route path="/recommendations" component={RecommendationsContainer} />

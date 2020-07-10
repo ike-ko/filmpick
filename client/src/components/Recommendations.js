@@ -66,11 +66,12 @@ export default class Recommendations extends Component {
         const { recResults } = this.state;
         let displayCards = [];
 
-        recResults.forEach(item => {
+        recResults.forEach((item, index) => {
             displayCards.push(
                 <CardContainer
                     key={item.id}
                     details={item}
+                    animationDelay={index}
                 />
             );
         })
