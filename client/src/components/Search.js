@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FormControl, Button, Container, InputGroup, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { motion } from "framer-motion";
 
 import Loading from './Loading';
 import CardCarousel from './CardCarousel';
@@ -9,6 +10,7 @@ import CardContainer from '../containers/CardContainer';
 import SearchOptionsContainer from '../containers/SearchOptionsContainer';
 import { searchTMDB, getPopularMovies, getPopularTV } from '../api/search';
 import { isSearchQueryValid } from '../utils/validations';
+import { HOME_TEXT_VARIANTS } from '../utils/constants';
 
 export default class Search extends Component {
     constructor() {
@@ -105,12 +107,13 @@ export default class Search extends Component {
     generateSearchCards = (data, isCarousel = false) => {
         let displayCards = [];
 
-        data.results.forEach(item => {
+        data.results.forEach((item, index) => {
             displayCards.push(
                 <CardContainer 
                     key={item.id}
                     details={item}
                     isCarousel={isCarousel}
+                    animationDelay={index}
                 />
             );
         })
@@ -128,45 +131,51 @@ export default class Search extends Component {
 
     render() {
         return (
-            <>
+            <div className='main'>
                 <NavigationContainer resetSearch={this.resetSearch} />
-                <Container fluid className="main">
-                    <SearchOptionsContainer 
-                        isVisible={this.state.isOptionVisible}
-                        hideSearchOptions={this.hideSearchOptions}
-                    />
-
-                    <InputGroup size="lg" className='my-3'>
-                        <Button size="lg" variant="secondary" className="mr-2" onClick={this.showSearchOptions}>
-                            <FontAwesomeIcon icon="sliders-h" size="lg"/>
-                        </Button>
-                        <FormControl 
-                            size="lg"
-                            type="text"
-                            placeholder="Search..."
-                            className="rounded mr-2"
-                            value={this.state.searchQuery}
-                            onChange={this.handleSearchQueryChange}
-                            onKeyPress={this.handleSearchQueryKeyPress}
+                
+                <Container fluid className="content mt-3">
+                    <motion.div 
+                        initial='hidden'
+                        animate='visible'
+                        variants={HOME_TEXT_VARIANTS}
+                    >
+                        <SearchOptionsContainer 
+                            isVisible={this.state.isOptionVisible}
+                            hideSearchOptions={this.hideSearchOptions}
                         />
-                        <Button size="lg" variant="secondary" onClick={this.submitSearch}>
-                            <FontAwesomeIcon icon="search" size="lg"/>
-                        </Button>
-                    </InputGroup>
 
+                        <InputGroup size="lg" className='mb-3 search-bar-group'>
+                            <Button size="lg" variant="info" className="search-bar-button mr-2" onClick={this.showSearchOptions}>
+                                <FontAwesomeIcon icon="sliders-h" size="lg"/>
+                            </Button>
+                            <FormControl 
+                                size="lg"
+                                type="text"
+                                placeholder="Search..."
+                                className="rounded shadow-none mr-2"
+                                value={this.state.searchQuery}
+                                onChange={this.handleSearchQueryChange}
+                                onKeyPress={this.handleSearchQueryKeyPress}
+                            />
+                            <Button size="lg" variant="info" className="search-bar-button" onClick={this.submitSearch}>
+                                <FontAwesomeIcon icon="search" size="lg"/>
+                            </Button>
+                        </InputGroup>
+                    </motion.div>
                     {this.state.isLoading 
                         ? <Loading message={this.state.loadingMessage} /> 
                         : this.state.searchData
                             ? <Row>{this.state.searchData}</Row>
                             : <>
-                                <h5 className='mb-0'>Popular Movies</h5>
+                                <h5 className='mb-0'><strong>Popular Movies</strong></h5>
                                 <CardCarousel cards={this.state.popularMovies}/>
-                                <h5 className='mb-0'>Popular TV Shows</h5>
+                                <h5 className='mb-0'><strong>Popular TV Shows</strong></h5>
                                 <CardCarousel cards={this.state.popularTV}/>
                               </>
                     }
                 </Container>
-            </>
+            </div>
         )
     }
 }

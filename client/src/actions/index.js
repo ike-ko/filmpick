@@ -8,6 +8,11 @@ export const setFavorites = items => ({
     items
 })
 
+export const setFirstLoad = isFirstLoad => ({
+    type: 'SET_FIRST_LOAD',
+    isFirstLoad
+})
+
 export const setGenres = genres => ({
     type: 'SET_GENRES',
     genres

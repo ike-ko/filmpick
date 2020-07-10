@@ -66,11 +66,12 @@ export default class Recommendations extends Component {
         const { recResults } = this.state;
         let displayCards = [];
 
-        recResults.forEach(item => {
+        recResults.forEach((item, index) => {
             displayCards.push(
                 <CardContainer
                     key={item.id}
                     details={item}
+                    animationDelay={index}
                 />
             );
         })
@@ -80,24 +81,24 @@ export default class Recommendations extends Component {
 
     render() {
         return (
-            <>
+            <div className='main'>
                 <NavigationContainer />
-                <Container fluid className="main">
+                <Container fluid className="content">
                     {this.state.isLoading
-                        ? <Loading message='Getting your recommendations!'/>
+                        ? <Loading className='pt-3' message='Getting your recommendations!'/>
                         :
                         this.props.favorites && this.props.favorites.length && this.state.recResults && this.state.recResults.length
                             ?
-                            <><h5 className='pt-2'>Recommendations</h5>
+                            <><h4 className='py-3 main-header'><strong>Recommendations</strong></h4>
                             {this.generateRecommendations()}</>
                             :
                             <>
-                                <h3 className='pt-2'>No recommendations to be made!</h3>
-                                <h5>Search and favorite movies/TV shows to see recommendations based on them!</h5>
+                                <h3 className='pt-3 text-center'><strong>No recommendations to be made!</strong></h3>
+                                <h5 className='text-center'>Search and favorite movies/TV shows to see recommendations based on them!</h5>
                             </>
                     }
                 </Container>
-            </>
+            </div>
         )
     }
 }

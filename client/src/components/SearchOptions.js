@@ -40,7 +40,7 @@ export default class SearchOptions extends Component {
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={this.props.hideSearchOptions}>
+                    <Button variant="info" onClick={this.props.hideSearchOptions}>
                         Close
                     </Button>
                 </Modal.Footer>

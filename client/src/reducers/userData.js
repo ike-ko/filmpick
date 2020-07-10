@@ -1,6 +1,7 @@
 const initialState = {
     isLoggedIn: false,
-    favorites: []
+    favorites: [],
+    isFirstLoad: true
 }
 
 const userData = (state = initialState, action) => {
@@ -19,6 +20,11 @@ const userData = (state = initialState, action) => {
             return {
                 ...state,
                 favorites: action.items
+            }
+        case 'SET_FIRST_LOAD':
+            return {
+                ...state,
+                isFirstLoad: action.isFirstLoad
             }
         default:
             return state;

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Col, Media, Image } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { motion } from "framer-motion"
 
 import DetailModal from './DetailModal';
 import FavoriteButtonContainer from '../containers/FavoriteButtonContainer';
-import { MOBILE_BREAKPOINT, TMDB_LG_IMG_HEIGHT, TMDB_SM_IMG_HEIGHT, TMDB_LG_IMG_WIDTH, TMDB_SM_IMG_WIDTH } from '../utils/constants';
+import { MOBILE_BREAKPOINT, TMDB_LG_IMG_HEIGHT, TMDB_SM_IMG_HEIGHT, TMDB_LG_IMG_WIDTH, TMDB_SM_IMG_WIDTH, CARD_VARIANTS } from '../utils/constants';
 
 export default class Card extends Component {
     constructor() {
@@ -78,28 +79,35 @@ export default class Card extends Component {
         return (
             <Col 
                 {...colOptions}
-            >
-                <Media 
-                    className="card-media h-100 p-3 border border-light rounded bg-light hvr-glow"
-                    onClick={this.handleOpenModal}
+            >   
+                <motion.div
+                    className="card-animation"
+                    custom={this.props.animationDelay || 0 }
+                    initial="hidden"
+                    animate="visible"
+                    variants={CARD_VARIANTS}
                 >
-                    {poster_path && this.state.isImageLoaded
-                        ? <Image src={`https://image.tmdb.org/t/p/w${imgWidth}/${poster_path}`} onError={this.handleImageLoadError} rounded className="mr-3" />
-                        : <div className="mr-3 border border-secondary rounded text-center bg-secondary d-flex" style={{height: imgHeight, width: imgWidth}}>
-                            <FontAwesomeIcon icon="question" size={isBrowser ? '8x' : '5x'} className="m-auto text-white" />
-                        </div>
-                    }
-                    <Media.Body className="h-100 d-flex flex-column">
-                        <h6><strong>{title}</strong></h6>
-                        {releaseDate && <h6>{releaseDate.substring(0, 4)}</h6>}
-                        <h6 className='search-card-genres'>{matchedGenres}</h6>
+                    <Media 
+                        className="card-media h-100 p-3 border border-light rounded bg-light hvr-float"
+                        onClick={this.handleOpenModal}
+                    >
+                        {poster_path && this.state.isImageLoaded
+                            ? <Image src={`https://image.tmdb.org/t/p/w${imgWidth}/${poster_path}`} onError={this.handleImageLoadError} rounded className="mr-3" />
+                            : <div className="mr-3 border border-secondary rounded text-center bg-secondary d-flex" style={{height: imgHeight, width: imgWidth}}>
+                                <FontAwesomeIcon icon="question" size={isBrowser ? '8x' : '5x'} className="m-auto text-white" />
+                            </div>
+                        }
+                        <Media.Body className="h-100 d-flex flex-column">
+                            <h6><strong>{title}</strong></h6>
+                            {releaseDate && <h6>{releaseDate.substring(0, 4)}</h6>}
+                            <h6 className='search-card-genres'>{matchedGenres}</h6>
 
-                        <FavoriteButtonContainer 
-                            details={this.props.details}
-                        />
-                    </Media.Body>
-                </Media>
-
+                            <FavoriteButtonContainer 
+                                details={this.props.details}
+                            />
+                        </Media.Body>
+                    </Media>
+                </motion.div>
                 <DetailModal
                     isVisible={this.state.isVisible}
                     details={this.props.details}
