@@ -82,7 +82,7 @@ body::-webkit-scrollbar-thumb {
     }
 
     .home-container {
-        padding-top: 4rem;
+        padding-top: 2rem;
     }
 
     .search-bar-group {
@@ -127,6 +127,10 @@ body::-webkit-scrollbar-thumb {
     .home-container {
         padding-left: 0;
         padding-right: 0;
+    }
+
+    .home-image {
+        display: none;
     }
 
     .col .about-images {
@@ -281,6 +285,10 @@ body::-webkit-scrollbar-thumb {
 
 .modal-content > button {
     margin: 0 1rem 1rem 1rem;
+}
+
+.modal-open {
+    overflow: scroll !important;
 }
 
 .about-header {

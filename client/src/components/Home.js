@@ -55,25 +55,9 @@ export default class Home extends Component {
                                     select your favorites,<br/>
                                     and get recommendations!
                                 </h4>
-                                <InputGroup size="lg" className='home-searchbar pt-3'>
-                                    <FormControl 
-                                        size="lg"
-                                        type="text"
-                                        placeholder="Search movies..."
-                                        className="rounded shadow-none"
-                                        value={this.state.searchQuery}
-                                        onChange={this.handleSearchQueryChange}
-                                        onKeyPress={this.handleSearchQueryKeyPress}
-                                    />
-                                    <InputGroup.Append className='input-group-text'>
-                                        <Button onClick={this.submitSearch} variant='light' size="sm">
-                                            <FontAwesomeIcon icon="search" size="sm"/>
-                                        </Button>
-                                    </InputGroup.Append>
-                                </InputGroup>
                             </Col>
                             <Col xs={0} md={3}/>
-                            <Col xs={0}>
+                            <Col xs={0} className='home-image mt-n4'>
                                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width='18rem' height='18rem' viewBox="0 0 172 172" style={{fill:'#000000'}}>
                                     <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" 
                                     stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style={{'mix-blend-mode': "normal"}}>
@@ -95,6 +79,26 @@ export default class Home extends Component {
                                         </g>
                                     </g>
                                 </svg>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <InputGroup size="lg" className='home-searchbar mt-4 pt-3'>
+                                    <FormControl 
+                                        size="lg"
+                                        type="text"
+                                        placeholder="Search movies..."
+                                        className="rounded shadow-none"
+                                        value={this.state.searchQuery}
+                                        onChange={this.handleSearchQueryChange}
+                                        onKeyPress={this.handleSearchQueryKeyPress}
+                                    />
+                                    <InputGroup.Append className='input-group-text'>
+                                        <Button onClick={this.submitSearch} variant='light' size="sm">
+                                            <FontAwesomeIcon icon="search" size="sm"/>
+                                        </Button>
+                                    </InputGroup.Append>
+                                </InputGroup>
                             </Col>
                         </Row>
                     </Container>
