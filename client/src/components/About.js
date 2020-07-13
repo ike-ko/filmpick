@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { motion } from "framer-motion"
 
 import NavigationContainer from '../containers/NavigationContainer';
-import { HOME_TEXT_VARIANTS, HOME_SPACER_VARIANTS, ABOUT_SPACER_VARIANTS} from '../utils/constants';
+import { MOBILE_BREAKPOINT, HOME_TEXT_VARIANTS, HOME_SPACER_VARIANTS, ABOUT_SPACER_VARIANTS} from '../utils/constants';
 
 export default class About extends Component {
     getAnimationProps = (delay, variants) => {
@@ -16,6 +16,8 @@ export default class About extends Component {
     }
 
     render() {
+        const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
+
         return (
             <div className='main'>
                 <NavigationContainer />
@@ -43,17 +45,22 @@ export default class About extends Component {
                             </Col>
                             <Col xs={0} md={1}/>
                             <Col xs={0}>
-                                <motion.div className='about-images' {...this.getAnimationProps(1, HOME_TEXT_VARIANTS)}>
-                                    <img className='d-inline' width="192" alt="React-icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/512px-React-icon.svg.png"/>
-                                    <img className='d-inline' width="192" alt="Node.js logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/512px-Node.js_logo.svg.png"/>
-                                </motion.div>
+                                {isMobile ? null : 
+                                    <motion.div className='about-images' {...this.getAnimationProps(1, HOME_TEXT_VARIANTS)}>
+                                        <img className='d-inline' width="192" alt="React-icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/512px-React-icon.svg.png"/>
+                                        <img className='d-inline' width="192" alt="Node.js logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/512px-Node.js_logo.svg.png"/>
+                                    </motion.div>
+                                }
                             </Col>
                         </Row>
                         <Row className='mt-5'>
                             <Col xs={0}>
-                                <motion.div className='about-images' {...this.getAnimationProps(1, HOME_TEXT_VARIANTS)}>
-                                    <img width="256" alt="Git-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Git-logo.svg/512px-Git-logo.svg.png"/>
-                                </motion.div>
+                                {isMobile ? null : 
+                                    <motion.div className='about-images' {...this.getAnimationProps(1, HOME_TEXT_VARIANTS)}>
+                                        <img width="192" alt="Git-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Git-logo.svg/512px-Git-logo.svg.png"/>
+                                        <img width="96" alt="Heroku-logo" src="https://brand.heroku.com/static/media/heroku-logotype-vertical.f7e1193f.svg"/>
+                                    </motion.div>
+                                }
                             </Col>
                             <Col xs={0} md={1}/>
                             <Col>
