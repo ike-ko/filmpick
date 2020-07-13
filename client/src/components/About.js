@@ -57,7 +57,8 @@ export default class About extends Component {
                             <Col xs={0}>
                                 {isMobile ? null : 
                                     <motion.div className='about-images' {...this.getAnimationProps(1, HOME_TEXT_VARIANTS)}>
-                                        <img width="256" alt="Git-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Git-logo.svg/512px-Git-logo.svg.png"/>
+                                        <img width="192" alt="Git-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Git-logo.svg/512px-Git-logo.svg.png"/>
+                                        <img width="96" alt="Heroku-logo" src="https://brand.heroku.com/static/media/heroku-logotype-vertical.f7e1193f.svg"/>
                                     </motion.div>
                                 }
                             </Col>
