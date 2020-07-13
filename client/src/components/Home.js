@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { motion } from "framer-motion"
 
 import NavigationContainer from '../containers/NavigationContainer';
-import { HOME_TEXT_VARIANTS, HOME_SPACER_VARIANTS, HOME_NAVBAR_VARIANTS } from '../utils/constants';
+import { MOBILE_BREAKPOINT, HOME_TEXT_VARIANTS, HOME_SPACER_VARIANTS, HOME_NAVBAR_VARIANTS } from '../utils/constants';
 
 export default class Home extends Component {
     constructor() {
@@ -97,14 +97,20 @@ export default class Home extends Component {
     }
 
     render() {
+        const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
+
         return (
             <div className='main'>
-                <motion.div
-                    {...this.getAnimationProps(2, HOME_NAVBAR_VARIANTS)}
-                >
+                { isMobile ? 
                     <NavigationContainer />
-                </motion.div>
-
+                : 
+                    <motion.div
+                        {...this.getAnimationProps(2, HOME_NAVBAR_VARIANTS)}
+                    >
+                        <NavigationContainer />
+                    </motion.div>
+                }
+                
                 <Container className="content home-container text-center mt-4">
                     <Container>
                         <Row>
