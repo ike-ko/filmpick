@@ -15,19 +15,19 @@ const options = {
     initialSlide: 0,
     responsive: [
         {
-          breakpoint: 1200,
+          breakpoint: 1700,
           settings: {
             slidesToShow: 3
           }
         },
         {
-          breakpoint: 992,
+          breakpoint: 1440,
           settings: {
             slidesToShow: 2
           }
         },
         {
-          breakpoint: 768,
+          breakpoint: 1080,
           settings: {
             slidesToShow: 1
           }
