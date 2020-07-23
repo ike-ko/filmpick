@@ -67,9 +67,9 @@ export default class Card extends Component {
             ? {}
             : {
                 sm: 12,
-                md: 6,
-                lg: 4,
-                xl: 3,
+                md: 12,
+                lg: 6,
+                xl: window.innerWidth > 1680 ? 3 : 4,
                 className: "px-3 pb-3"
             };
 
